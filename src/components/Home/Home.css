@@ -1,0 +1,123 @@
+.home-container {
+    text-align: center;
+    padding: 3rem 2rem;
+    max-width: 1250px;
+    margin: 0 auto;
+    font-family: "Inter", sans-serif;
+  }
+  
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(135deg, #2c3e50, #4a69bd);
+    color: white;
+    padding: 4rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .hero-content {
+    max-width: 1000px;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.8rem 1.8rem;
+    background: white;
+    color: #2c3e50;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  .cta-button:hover {
+    background: #f0f0f0;
+    transform: scale(1.05);
+  }
+  
+  /* How It Works */
+  .how-it-works {
+    margin-top: 4rem;
+  }
+  
+  .steps {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .step {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    transition: transform 0.3s ease;
+  }
+  
+  .step:hover {
+    transform: translateY(-5px);
+  }
+  
+  .step h3 {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  .step p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /* Features */
+  .features {
+    margin-top: 4rem;
+  }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .feature-item {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .feature-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .feature-item h4 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  .feature-item p {
+    font-size: 1rem;
+    color: #666;
+  }
+  

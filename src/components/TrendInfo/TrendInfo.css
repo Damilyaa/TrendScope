@@ -1,0 +1,37 @@
+.trend-info-container {
+    padding: 2rem;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 800px;
+    margin: 2rem auto;
+  }
+  
+  .trend-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .trend-description {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    color: #666;
+  }
+  
+  .trend-content {
+    margin-top: 1.5rem;
+    text-align: left;
+  }
+  
+  .trend-content h3 {
+    color: #444;
+    margin-bottom: 0.5rem;
+  }
+  
+  .trend-content p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
