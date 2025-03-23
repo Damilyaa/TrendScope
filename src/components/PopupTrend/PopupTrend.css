@@ -45,3 +45,83 @@
     height: 250px;
   }
   
+  /* Custom styles for the Dialog component */
+  .MuiDialog-paper {
+    border-radius: 16px !important;
+    overflow: hidden;
+  }
+  
+  /* Chart container styles */
+  .chart-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Custom scrollbar for dialog content */
+  .MuiDialogContent-root {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+  }
+  
+  .MuiDialogContent-root::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .MuiDialogContent-root::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+  
+  .MuiDialogContent-root::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  
+  .MuiDialogContent-root::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  /* Animation for dialog backdrop */
+  .MuiBackdrop-root {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    backdrop-filter: blur(4px);
+  }
+  
+  /* Hover effect for article links */
+  .article-link {
+    transition: all 0.2s ease;
+    position: relative;
+    padding-left: 0;
+  }
+  
+  .article-link:hover {
+    padding-left: 8px;
+  }
+  
+  /* Custom styles for the share chip */
+  .share-chip {
+    transition: all 0.2s ease;
+  }
+  
+  .share-chip:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .MuiDialog-paper {
+      margin: 16px !important;
+      width: calc(100% - 32px) !important;
+    }
+    
+    .MuiDialogTitle-root {
+      padding: 16px !important;
+    }
+    
+    .MuiDialogContent-root {
+      padding: 16px !important;
+    }
+  }
+  

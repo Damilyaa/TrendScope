@@ -1,0 +1,26 @@
+.categories-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.categories-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.category-card {
+  height: 100%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.category-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+}
+
+@media (max-width: 600px) {
+  .categories-container {
+    padding: 1rem;
+  }
+} 
