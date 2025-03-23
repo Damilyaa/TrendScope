@@ -12,6 +12,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { TrendingUp, ArrowForward } from "@mui/icons-material";
+import { formatDate } from "../../utils/dateUtils";
 
 // Mock data for categories
 const categories = [
@@ -67,6 +68,7 @@ const categories = [
 
 const CategoryCard = memo(({ category }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const lastUpdate = formatDate();
 
   return (
     <motion.div
@@ -148,6 +150,18 @@ const CategoryCard = memo(({ category }) => {
               <Typography variant="body2">{category.growth}</Typography>
             </Box>
           </Box>
+
+          <Typography 
+            variant="caption" 
+            color="text.secondary"
+            sx={{ 
+              display: "block", 
+              mt: 1,
+              textAlign: "right"
+            }}
+          >
+            Обновлено: {lastUpdate}
+          </Typography>
         </CardContent>
       </Card>
     </motion.div>
@@ -166,6 +180,8 @@ CategoryCard.propTypes = {
 };
 
 const Categories = () => {
+  const currentDate = formatDate();
+
   return (
     <div className="categories-container">
       <div className="categories-header">
@@ -174,6 +190,13 @@ const Categories = () => {
         </Typography>
         <Typography variant="body1" color="text.secondary">
           Исследуйте тренды по категориям и находите новые возможности
+        </Typography>
+        <Typography 
+          variant="body2" 
+          color="text.secondary"
+          sx={{ mt: 1 }}
+        >
+          Последнее обновление: {currentDate}
         </Typography>
       </div>
 

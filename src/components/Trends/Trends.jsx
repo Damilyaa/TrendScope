@@ -16,6 +16,7 @@ import {
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import "./Trends.css";
 import PopupTrend from "../PopupTrend/PopupTrend";
+import { formatDate } from "../../utils/dateUtils";
 
 const TrendCard = ({ trend, onClick }) => (
   <motion.div
@@ -40,7 +41,7 @@ const TrendCard = ({ trend, onClick }) => (
         <Box display="flex" alignItems="center" mb={2}>
           <TrendingUpIcon color="primary" sx={{ mr: 1 }} />
           <Typography variant="h6" component="h2" gutterBottom>
-            {trend.title}
+            {trend.name}
           </Typography>
         </Box>
         <Typography variant="body2" color="text.secondary" paragraph>
@@ -48,7 +49,7 @@ const TrendCard = ({ trend, onClick }) => (
         </Typography>
         <Box mt={2}>
           <Chip 
-            label={`#${trend.tag}`} 
+            label={`#${trend.tags[0]}`} 
             color="primary" 
             variant="outlined"
             size="small"
@@ -66,35 +67,65 @@ const TrendCard = ({ trend, onClick }) => (
 
 const trends = [
   {
-    date: "21 марта 2025",
-    topics: [
-      {
-        title: "Развитие искусственного интеллекта",
-        tag: "AI",
-        description: "Искусственный интеллект меняет индустрии, ускоряя автоматизацию и аналитику. Новые модели GPT-4 и DALL-E 3 открывают новые возможности для творчества и бизнеса.",
-        articles: [
-          { title: "Как AI трансформирует бизнес", link: "#" },
-          { title: "Будущее GPT-5", link: "#" },
-        ],
-        chartData: [10, 40, 60, 90, 120],
-      },
-      {
-        title: "Будущее квантовых вычислений",
-        tag: "QuantumComputing",
-        description: "Квантовые компьютеры обещают революцию в криптографии и науке о данных. Компании как Google и IBM активно развивают эту технологию.",
-        articles: [
-          { title: "Квантовые вычисления: что нас ждет?", link: "#" },
-          { title: "Google и IBM в гонке за квантовое превосходство", link: "#" },
-        ],
-        chartData: [5, 15, 30, 55, 80],
-      },
-    ],
+    id: 1,
+    name: "Искусственный интеллект в бизнесе",
+    description: "Как ИИ трансформирует бизнес-процессы",
+    category: "Технологии",
+    growth: "+25%",
+    tags: ["AI", "Бизнес", "Инновации"],
+    chartData: [30, 45, 60, 75, 85],
+  },
+  {
+    id: 2,
+    name: "Устойчивая мода",
+    description: "Экологически ответственный подход к моде",
+    category: "Мода",
+    growth: "+18%",
+    tags: ["Экология", "Мода", "Устойчивость"],
+    chartData: [20, 35, 45, 55, 65],
+  },
+  {
+    id: 3,
+    name: "Ментальное здоровье",
+    description: "Важность психологического благополучия",
+    category: "Здоровье",
+    growth: "+22%",
+    tags: ["Психология", "Здоровье", "Благополучие"],
+    chartData: [25, 40, 55, 70, 80],
+  },
+  {
+    id: 4,
+    name: "Микрообучение",
+    description: "Короткие форматы обучения для быстрого развития",
+    category: "Образование",
+    growth: "+15%",
+    tags: ["Обучение", "EdTech", "Развитие"],
+    chartData: [15, 30, 45, 60, 70],
+  },
+  {
+    id: 5,
+    name: "ESG-инвестиции",
+    description: "Инвестиции в экологически ответственные компании",
+    category: "Бизнес",
+    growth: "+20%",
+    tags: ["Инвестиции", "ESG", "Устойчивость"],
+    chartData: [35, 50, 65, 80, 90],
+  },
+  {
+    id: 6,
+    name: "VR в развлечениях",
+    description: "Виртуальная реальность в индустрии развлечений",
+    category: "Развлечения",
+    growth: "+28%",
+    tags: ["VR", "Гейминг", "Технологии"],
+    chartData: [40, 55, 70, 85, 95],
   },
 ];
 
 export default function Trends() {
   const [selectedTrend, setSelectedTrend] = useState(null);
   const [error, setError] = useState(null);
+  const currentDate = formatDate();
 
   const handleTrendClick = useCallback((trend) => {
     try {
@@ -146,35 +177,26 @@ export default function Trends() {
           Актуальные технологические тренды
         </Typography>
 
-        {trends.map((day, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: index * 0.2 }}
-          >
-            <Typography 
-              variant="h5" 
-              component="h2" 
-              gutterBottom 
-              sx={{ 
-                color: 'text.secondary',
-                mb: 3,
-                fontWeight: 500
-              }}
-            >
-              {day.date}
-            </Typography>
+        <Typography 
+          variant="h5" 
+          component="h2" 
+          gutterBottom 
+          sx={{ 
+            color: 'text.secondary',
+            mb: 3,
+            fontWeight: 500
+          }}
+        >
+          {currentDate}
+        </Typography>
 
-            <Grid container spacing={3}>
-              {day.topics.map((trend, i) => (
-                <Grid item xs={12} sm={6} md={4} key={i}>
-                  <TrendCard trend={trend} onClick={handleTrendClick} />
-                </Grid>
-              ))}
+        <Grid container spacing={3}>
+          {trends.map((trend) => (
+            <Grid item xs={12} sm={6} md={4} key={trend.id}>
+              <TrendCard trend={trend} onClick={handleTrendClick} />
             </Grid>
-          </motion.div>
-        ))}
+          ))}
+        </Grid>
       </motion.div>
 
       {selectedTrend && (
