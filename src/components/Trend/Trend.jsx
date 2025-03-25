@@ -18,7 +18,6 @@ import {
 } from "@mui/material";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import ArticleIcon from "@mui/icons-material/Article";
-import ShareIcon from "@mui/icons-material/Share";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import RedditIcon from "@mui/icons-material/Reddit";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -32,7 +31,7 @@ export default function Trend() {
   const trendData = {
     title: trendName,
     tag: trendName.replace(/\s+/g, ''),
-    description: `Подробный анализ тренда ${trendName}, включающий статистику, графики и актуальные обсуждения.`,
+    description: `Подробный анализ тренда "${trendName}"`,
     chartData: [10, 40, 60, 90, 120, 150, 180],
     articles: [
       { title: "Как тренд меняет индустрию", link: "#" },

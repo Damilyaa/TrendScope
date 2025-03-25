@@ -18,7 +18,6 @@ import {
 } from "@mui/material";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import ArticleIcon from "@mui/icons-material/Article";
-import ShareIcon from "@mui/icons-material/Share";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import RedditIcon from "@mui/icons-material/Reddit";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
