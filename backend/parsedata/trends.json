@@ -1,0 +1,160 @@
+{
+  "trends": [
+    {
+      "id": 1,
+      "name": "Artificial Intelligence (AI)",
+      "description": "The development of computer systems able to perform tasks that normally require human intelligence, such as visual perception, speech recognition, decision-making, and translation between languages.",
+      "category": "Computing",
+      "growth": "Exponential",
+      "tags": [
+        "machine learning",
+        "deep learning",
+        "natural language processing",
+        "computer vision",
+        "automation"
+      ],
+      "chartData": [
+        10,
+        25,
+        40,
+        60,
+        75,
+        90
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Cloud Computing",
+      "description": "The practice of using a network of remote servers hosted on the internet to store, manage, and process data, rather than a local server or a personal computer.",
+      "category": "Infrastructure",
+      "growth": "Steady",
+      "tags": [
+        "aws",
+        "azure",
+        "google cloud",
+        "saas",
+        "paas",
+        "iaas"
+      ],
+      "chartData": [
+        50,
+        55,
+        60,
+        65,
+        70,
+        75
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Cybersecurity",
+      "description": "The practice of protecting computer systems, networks, and data from digital attacks. It involves a range of technologies and processes designed to prevent, detect, and respond to cyber threats.",
+      "category": "Security",
+      "growth": "High",
+      "tags": [
+        "threat detection",
+        "data protection",
+        "risk management",
+        "endpoint security",
+        "network security"
+      ],
+      "chartData": [
+        15,
+        28,
+        42,
+        58,
+        72,
+        88
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Internet of Things (IoT)",
+      "description": "A network of physical objects—devices, vehicles, buildings, and other items—embedded with sensors, software, and other technologies for the purpose of connecting and exchanging data with other devices and systems over the internet.",
+      "category": "Connectivity",
+      "growth": "Significant",
+      "tags": [
+        "sensors",
+        "smart devices",
+        "data analytics",
+        "automation",
+        "connected devices"
+      ],
+      "chartData": [
+        20,
+        35,
+        50,
+        65,
+        80,
+        95
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Blockchain Technology",
+      "description": "A decentralized, distributed, and often public digital ledger used to record transactions across many computers so that any involved record cannot be altered retroactively, without the alteration of all subsequent blocks.",
+      "category": "Data Management",
+      "growth": "Moderate",
+      "tags": [
+        "cryptocurrency",
+        "smart contracts",
+        "distributed ledger",
+        "security",
+        "transparency"
+      ],
+      "chartData": [
+        5,
+        12,
+        20,
+        30,
+        40,
+        50
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Edge Computing",
+      "description": "A distributed computing framework that brings computation and data storage closer to the location where it is needed to improve response times and save bandwidth.",
+      "category": "Computing",
+      "growth": "Rapid",
+      "tags": [
+        "low latency",
+        "data processing",
+        "distributed systems",
+        "iot",
+        "real-time"
+      ],
+      "chartData": [
+        3,
+        8,
+        15,
+        25,
+        38,
+        55
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Metaverse",
+      "description": "A persistent, shared, 3D virtual world, or set of interconnected virtual worlds, where users can interact with each other and digital objects.",
+      "category": "Social",
+      "growth": "Emerging",
+      "tags": [
+        "virtual reality",
+        "augmented reality",
+        "digital identity",
+        "virtual worlds",
+        "immersive experiences"
+      ],
+      "chartData": [
+        1,
+        3,
+        7,
+        12,
+        18,
+        25
+      ]
+    }
+  ],
+  "timestamp": "2025-03-25T19:59:30.562670698+05:00"
+}
