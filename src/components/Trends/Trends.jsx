@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Typography,
@@ -15,55 +16,62 @@ import {
 } from "@mui/material";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import "./Trends.css";
-import PopupTrend from "../PopupTrend/PopupTrend";
 import { formatDate } from "../../utils/dateUtils";
 
-const TrendCard = ({ trend, onClick }) => (
-  <motion.div
-    whileHover={{ scale: 1.02 }}
-    whileTap={{ scale: 0.98 }}
-  >
-    <Card 
-      className="trend-card"
-      onClick={() => onClick(trend)}
-      sx={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        transition: 'all 0.3s ease',
-        '&:hover': {
-          boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
-          transform: 'translateY(-4px)',
-        },
-      }}
+const TrendCard = ({ trend }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/trend/${encodeURIComponent(trend.name)}`);
+  };
+
+  return (
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
     >
-      <CardContent sx={{ flexGrow: 1 }}>
-        <Box display="flex" alignItems="center" mb={2}>
-          <TrendingUpIcon color="primary" sx={{ mr: 1 }} />
-          <Typography variant="h6" component="h2" gutterBottom>
-            {trend.name}
+      <Card 
+        className="trend-card"
+        onClick={handleClick}
+        sx={{
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          transition: 'all 0.3s ease',
+          '&:hover': {
+            boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
+            transform: 'translateY(-4px)',
+          },
+        }}
+      >
+        <CardContent sx={{ flexGrow: 1 }}>
+          <Box display="flex" alignItems="center" mb={2}>
+            <TrendingUpIcon color="primary" sx={{ mr: 1 }} />
+            <Typography variant="h6" component="h2" gutterBottom>
+              {trend.name}
+            </Typography>
+          </Box>
+          <Typography variant="body2" color="text.secondary" paragraph>
+            {trend.description}
           </Typography>
-        </Box>
-        <Typography variant="body2" color="text.secondary" paragraph>
-          {trend.description}
-        </Typography>
-        <Box mt={2}>
-          <Chip 
-            label={`#${trend.tags[0]}`} 
-            color="primary" 
-            variant="outlined"
-            size="small"
-          />
-        </Box>
-      </CardContent>
-      <CardActions>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
-    </Card>
-  </motion.div>
-);
+          <Box mt={2}>
+            <Chip 
+              label={`#${trend.tags[0]}`} 
+              color="primary" 
+              variant="outlined"
+              size="small"
+            />
+          </Box>
+        </CardContent>
+        <CardActions>
+          <Button size="small" color="primary">
+            Learn More
+          </Button>
+        </CardActions>
+      </Card>
+    </motion.div>
+  );
+};
 
 const trends = [
   {
@@ -123,19 +131,8 @@ const trends = [
 ];
 
 export default function Trends() {
-  const [selectedTrend, setSelectedTrend] = useState(null);
   const [error, setError] = useState(null);
   const currentDate = formatDate();
-
-  const handleTrendClick = useCallback((trend) => {
-    try {
-      setSelectedTrend(trend);
-      setError(null);
-    } catch (err) {
-      setError("Произошла ошибка при загрузке тренда");
-      console.error("Error loading trend:", err);
-    }
-  }, []);
 
   if (error) {
     return (
@@ -193,18 +190,11 @@ export default function Trends() {
         <Grid container spacing={3}>
           {trends.map((trend) => (
             <Grid item xs={12} sm={6} md={4} key={trend.id}>
-              <TrendCard trend={trend} onClick={handleTrendClick} />
+              <TrendCard trend={trend} />
             </Grid>
           ))}
         </Grid>
       </motion.div>
-
-      {selectedTrend && (
-        <PopupTrend
-          trend={selectedTrend}
-          onClose={() => setSelectedTrend(null)}
-        />
-      )}
     </Container>
   );
 }

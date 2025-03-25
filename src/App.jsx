@@ -4,13 +4,14 @@ import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 
-// Lazy load components
+// Lazy load components for better performance
 const Home = React.lazy(() => import("./components/Home/Home"));
 const Trends = React.lazy(() => import("./components/Trends/Trends"));
 const TrendInfo = React.lazy(() => import("./components/TrendInfo/TrendInfo"));
+const Trend = React.lazy(() => import("./components/Trend/Trend"));
 const Categories = React.lazy(() => import("./components/Categories/Categories"));
 
-// Create theme with soft blue-gray colors
+// Theme configuration with custom color palette and typography
 const theme = createTheme({
   palette: {
     primary: {
@@ -186,7 +187,7 @@ const theme = createTheme({
   },
 });
 
-// Loading component
+// Loading component shown while lazy-loaded components are being fetched
 const LoadingFallback = () => (
   <div style={{
     display: "flex",
@@ -212,7 +213,7 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/trends" element={<Trends />} />
                 <Route path="/categories" element={<Categories />} />
-                <Route path="/trend/:trendName" element={<TrendInfo />} />
+                <Route path="/trend/:trendName" element={<Trend />} />
               </Routes>
             </Suspense>
           </main>
