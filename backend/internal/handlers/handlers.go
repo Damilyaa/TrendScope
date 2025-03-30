@@ -13,27 +13,32 @@ func GetTrendsHandler(analyzer models.TrendAnalyzer) http.HandlerFunc {
 		log.Println("Обработка запроса /api/trends")
 
 		log.Println("Запрос к Gemini API")
-		trends, err := analyzer.AnalyzeTrends()
+		newTrends, err := analyzer.AnalyzeTrends()
 		if err != nil {
-			log.Printf("Ошибка при получении трендов из Gemini API: %v. Используются данные из кэша.", err)
-			// Пробуем загрузить данные из файла как fallback
-			cachedTrends, err := storage.LoadTrendsFromFile()
+			log.Printf("Ошибка при получении трендов из Gemini API: %v. Используем кэш.", err)
+
+			// Пробуем загрузить данные из файла
+			cachedTrends, _, err := storage.LoadAllData()
 			if err != nil {
-				log.Printf("Ошибка при загрузке данных из файла: %v", err)
+				log.Printf("Ошибка загрузки из кэша: %v", err)
 				http.Error(w, "Не удалось получить тренды", http.StatusInternalServerError)
 				return
 			}
-			trends = cachedTrends
+
+			newTrends = cachedTrends
 		} else {
-			// Если данные успешно получены, сохраняем их в файл
-			if err := storage.SaveTrendsToFile(trends); err != nil {
-				log.Printf("Ошибка при сохранении трендов в файл: %v", err)
+			// Сохраняем новые данные
+			_, existingDetails, _ := storage.LoadAllData()
+			if err := storage.SaveAllData(newTrends, existingDetails); err != nil {
+				log.Printf("Ошибка сохранения: %v", err)
 			} else {
-				log.Println("Тренды сохранены в файл")
+				log.Printf("Сохранено %d трендов", len(newTrends))
 			}
 		}
 
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(trends)
+		if err := json.NewEncoder(w).Encode(newTrends); err != nil {
+			log.Printf("Ошибка формирования ответа: %v", err)
+		}
 	}
 }

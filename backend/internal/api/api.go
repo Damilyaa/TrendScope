@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"strings"
 	"trendscope/internal/models"
+	"trendscope/internal/storage"
 	"trendscope/pkg"
 )
 
@@ -19,19 +20,43 @@ type GeminiAPI struct {
 }
 
 func (g *GeminiAPI) AnalyzeTrends() ([]models.Trend, error) {
+	prompt := `Generate a JSON array of 5 unique current technology trends as of 2025. Each trend should be an object with the following fields:
+    - id (number)
+    - name (string)
+    - tag (string, lowercase version of name with no spaces)
+    - description (string, at least 5 sentences)
+    - category (string)
+    - growth (string)
+    - chartData (array of 7 numbers for monthly growth)
+    - articles (array of 3 objects with title and link fields)
+    - socialPosts (array of 3 objects with platform, content and link fields)
+    - keyPlayers (array of strings)
+    - useCases (array of strings)
+    - pros (array of strings)
+    - cons (array of strings)
+    - futureOutlook (string, at least 5 sentences)
+    
+    Additional requirements:
+    - Ensure trends are diverse and not repeated across responses
+    - For socialPosts, use platforms: Twitter, Reddit, or LinkedIn
+    - For articles and socialPosts, use real, valid URLs (e.g., https://example.com/article1) instead of placeholders like "#"
+    - Generate realistic demo content based on plausible technology trends
+    - Ensure the output is valid JSON`
+
+	// Формируем тело запроса с параметрами генерации
 	requestPayload := map[string]interface{}{
 		"contents": []map[string]interface{}{
 			{
 				"parts": []map[string]string{
 					{
-						"text": "Generate a JSON array of current technology trends. " +
-							"Each trend should be an object with the following fields: " +
-							"id (number), name (string), description (string), category (string), " +
-							"growth (string), tags (array of strings), chartData (array of numbers). " +
-							"Ensure the output is valid JSON.",
+						"text": prompt,
 					},
 				},
 			},
+		},
+		"generationConfig": map[string]interface{}{
+			"temperature": 0.9, // Увеличивает случайность
+			"topK":        50,  // Увеличивает разнообразие
 		},
 	}
 
@@ -41,15 +66,15 @@ func (g *GeminiAPI) AnalyzeTrends() ([]models.Trend, error) {
 		return nil, err
 	}
 
+	// Создаём запрос
 	req, err := http.NewRequest("POST", g.APIEndpoint, bytes.NewReader(data))
 	if err != nil {
 		log.Printf("Ошибка при создании запроса: %v", err)
 		return nil, err
 	}
-
 	req.Header.Set("Content-Type", "application/json")
 	q := req.URL.Query()
-	q.Add("key", g.APIKey)
+	q.Add("key", g.APIKey) // Оставляем только ключ в query
 	req.URL.RawQuery = q.Encode()
 
 	resp, err := g.Client.Do(req)
@@ -59,7 +84,6 @@ func (g *GeminiAPI) AnalyzeTrends() ([]models.Trend, error) {
 	}
 	defer resp.Body.Close()
 
-	log.Printf("Статус ответа от Gemini API: %s", resp.Status)
 	if resp.StatusCode != http.StatusOK {
 		body, _ := io.ReadAll(resp.Body)
 		log.Printf("Ошибка: %s, тело ответа: %s", resp.Status, string(body))
@@ -71,8 +95,6 @@ func (g *GeminiAPI) AnalyzeTrends() ([]models.Trend, error) {
 		log.Printf("Ошибка при чтении тела ответа: %v", err)
 		return nil, err
 	}
-
-	log.Printf("Сырой ответ от Gemini API: %s", string(body))
 
 	type GeminiResponse struct {
 		Candidates []struct {
@@ -100,12 +122,14 @@ func (g *GeminiAPI) AnalyzeTrends() ([]models.Trend, error) {
 	generatedText = strings.TrimSuffix(generatedText, "\n```")
 	generatedText = strings.TrimSpace(generatedText)
 
-	log.Printf("Очищенный текст от Gemini API: %s", generatedText)
-
 	var trends []models.Trend
 	if err := json.Unmarshal([]byte(generatedText), &trends); err != nil {
 		log.Printf("Ошибка при разборе сгенерированного JSON: %v", err)
 		return nil, err
+	}
+
+	if err := storage.SaveAllData(trends, nil); err != nil {
+		log.Printf("⚠️ Ошибка сохранения трендов: %v", err)
 	}
 
 	return trends, nil
