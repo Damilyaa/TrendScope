@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
@@ -18,6 +18,7 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import "./Trends.css";
 import { formatDate } from "../../utils/dateUtils";
 
+// Компонент для отображения отдельного тренда
 const TrendCard = ({ trend }) => {
   const navigate = useNavigate();
 
@@ -26,21 +27,18 @@ const TrendCard = ({ trend }) => {
   };
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-    >
-      <Card 
+    <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+      <Card
         className="trend-card"
         onClick={handleClick}
         sx={{
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          transition: 'all 0.3s ease',
-          '&:hover': {
-            boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
-            transform: 'translateY(-4px)',
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          transition: "all 0.3s ease",
+          "&:hover": {
+            boxShadow: "0 8px 16px rgba(0,0,0,0.1)",
+            transform: "translateY(-4px)",
           },
         }}
       >
@@ -55,92 +53,72 @@ const TrendCard = ({ trend }) => {
             {trend.description}
           </Typography>
           <Box mt={2}>
-            <Chip 
-              label={`#${trend.tags[0]}`} 
-              color="primary" 
+            <Chip
+              label={`#${trend.tag[0]}`}
+              color="primary"
               variant="outlined"
               size="small"
             />
           </Box>
         </CardContent>
         <CardActions>
-          <Button size="small" color="primary">
-            Learn More
-          </Button>
+          <Button size="small" color="primary">Learn More</Button>
         </CardActions>
       </Card>
     </motion.div>
   );
 };
 
-const trends = [
-  {
-    id: 1,
-    name: "Искусственный интеллект в бизнесе",
-    description: "Как ИИ трансформирует бизнес-процессы",
-    category: "Технологии",
-    growth: "+25%",
-    tags: ["AI", "Бизнес", "Инновации"],
-    chartData: [30, 45, 60, 75, 85],
-  },
-  {
-    id: 2,
-    name: "Устойчивая мода",
-    description: "Экологически ответственный подход к моде",
-    category: "Мода",
-    growth: "+18%",
-    tags: ["Экология", "Мода", "Устойчивость"],
-    chartData: [20, 35, 45, 55, 65],
-  },
-  {
-    id: 3,
-    name: "Ментальное здоровье",
-    description: "Важность психологического благополучия",
-    category: "Здоровье",
-    growth: "+22%",
-    tags: ["Психология", "Здоровье", "Благополучие"],
-    chartData: [25, 40, 55, 70, 80],
-  },
-  {
-    id: 4,
-    name: "Микрообучение",
-    description: "Короткие форматы обучения для быстрого развития",
-    category: "Образование",
-    growth: "+15%",
-    tags: ["Обучение", "EdTech", "Развитие"],
-    chartData: [15, 30, 45, 60, 70],
-  },
-  {
-    id: 5,
-    name: "ESG-инвестиции",
-    description: "Инвестиции в экологически ответственные компании",
-    category: "Бизнес",
-    growth: "+20%",
-    tags: ["Инвестиции", "ESG", "Устойчивость"],
-    chartData: [35, 50, 65, 80, 90],
-  },
-  {
-    id: 6,
-    name: "VR в развлечениях",
-    description: "Виртуальная реальность в индустрии развлечений",
-    category: "Развлечения",
-    growth: "+28%",
-    tags: ["VR", "Гейминг", "Технологии"],
-    chartData: [40, 55, 70, 85, 95],
-  },
-];
-
+// Основной компонент Trends
 export default function Trends() {
+  const [trends, setTrends] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const currentDate = formatDate();
 
+  // Функция для загрузки данных
+  const fetchTrends = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch("http://localhost:8080/api/trends");
+      if (!response.ok) {
+        throw new Error("Не удалось загрузить тренды");
+      }
+      const data = await response.json();
+      setTrends(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  // Загрузка данных при монтировании компонента
+  useEffect(() => {
+    fetchTrends();
+  }, [fetchTrends]);
+
+  // Отображение индикатора загрузки
+  if (loading) {
+    return (
+      <Container
+        maxWidth="md"
+        sx={{ display: "flex", justifyContent: "center", mt: 4 }}
+      >
+        <CircularProgress />
+      </Container>
+    );
+  }
+
+  // Отображение ошибки, если она произошла
   if (error) {
     return (
       <Container maxWidth="md">
-        <Alert 
-          severity="error" 
+        <Alert
+          severity="error"
           action={
-            <Button color="inherit" size="small" onClick={() => setError(null)}>
+            <Button color="inherit" size="small" onClick={fetchTrends}>
               Попробовать снова
             </Button>
           }
@@ -151,6 +129,7 @@ export default function Trends() {
     );
   }
 
+  // Основное отображение трендов
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <motion.div
@@ -158,30 +137,30 @@ export default function Trends() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Typography 
-          variant="h3" 
-          component="h1" 
-          gutterBottom 
+        <Typography
+          variant="h3"
+          component="h1"
+          gutterBottom
           align="center"
-          sx={{ 
+          sx={{
             fontWeight: 700,
             mb: 4,
-            background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
+            background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
           }}
         >
           Актуальные технологические тренды
         </Typography>
 
-        <Typography 
-          variant="h5" 
-          component="h2" 
-          gutterBottom 
-          sx={{ 
-            color: 'text.secondary',
+        <Typography
+          variant="h5"
+          component="h2"
+          gutterBottom
+          sx={{
+            color: "text.secondary",
             mb: 3,
-            fontWeight: 500
+            fontWeight: 500,
           }}
         >
           {currentDate}
