@@ -7,12 +7,12 @@ export default function Footer() {
       <div className="footer-content">
         <h2 className="footer-logo">TrendScope</h2>
         <nav className="footer-nav">
-          <a href="#" className="footer-link">О нас</a>
-          <a href="#" className="footer-link">Контакты</a>
-          <a href="#" className="footer-link">Политика конфиденциальности</a>
+          <a href="#" className="footer-link">Home</a>
+          <a href="#" className="footer-link">Current trends</a>
+          <a href="#" className="footer-link">Categories</a>
         </nav>
       </div>
-      <p className="footer-copy">© 2025 TrendScope. Все права защищены.</p>
+      <p className="footer-copy">© 2025 TrendScope</p>
     </footer>
   );
 }

@@ -10,22 +10,22 @@ export default function Home() {
       <header className="hero">
         <div className="hero-content">
           <h1>Trends Analyzer</h1>
-          <p>Инструмент для анализа трендов и прогнозирования популярных тем.</p>
-          <a href="/trends" className="cta-button">Начать анализ</a>
+          <p>Tool for analyzing trends</p>
+          <a href="/trends" className="cta-button">Start</a>
         </div>
       </header>
 
       {/* How It Works */}
       <section className="how-it-works">
-        <h2>Как это работает</h2>
+        <h2>How does it work</h2>
         <div className="steps">
           <div className="step">
-            <h3>Поиск трендов</h3>
-            <p>Вводите ключевые слова и получайте актуальные тренды в реальном времени.</p>
+            <h3>Trend search</h3>
+            <p>Input keywords and get related trend info</p>
           </div>
           <div className="step">
-            <h3>Анализ данных</h3>
-            <p>Изучайте статистику и графики по темам, которые вас интересуют.</p>
+            <h3>Data analyzes</h3>
+            <p>Discover statistics and related charts</p>
           </div>
           <div className="step">
             <h3>Прогнозирование</h3>
@@ -36,23 +36,23 @@ export default function Home() {
 
       {/* Features */}
       <section className="features">
-        <h2>Основные возможности</h2>
+        <h2>Main features</h2>
         <div className="features-grid">
           <div className="feature-item">
-            <h4>Визуализация данных</h4>
-            <p>Графики и аналитика для глубокого понимания трендов.</p>
+            <h4>Data visualisations</h4>
+            <p>Charts and data for deep trend analyzes.</p>
           </div>
           <div className="feature-item">
-            <h4>Алгоритмы ИИ</h4>
-            <p>Точные предсказания на основе анализа большого объёма данных.</p>
+            <h4>AI Algorithms</h4>
+            <p>Exact data based on Big Data Analyzes</p>
           </div>
           <div className="feature-item">
-            <h4>Фильтрация по категориям</h4>
-            <p>Отслеживайте тренды в разных сферах: технологии, экономика, культура.</p>
+            <h4>Filter by categories</h4>
+            <p>Discover trends of different categories</p>
           </div>
           <div className="feature-item">
-            <h4>Глобальный охват</h4>
-            <p>Данные о трендах в разных странах и регионах.</p>
+            <h4>Global reach</h4>
+            <p>Data from all over the world</p>
           </div>
         </div>
       </section>

@@ -150,7 +150,7 @@ export default function Trends() {
             WebkitTextFillColor: "transparent",
           }}
         >
-          Актуальные технологические тренды
+          Current trends
         </Typography>
 
         <Typography

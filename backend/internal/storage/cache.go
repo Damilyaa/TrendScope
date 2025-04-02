@@ -11,7 +11,7 @@ import (
 var (
 	mu        sync.Mutex
 	cacheFile = "../parsedata/trends.json"
-	cacheTTL  = 1 * time.Hour // Время жизни кэша
+	cacheTTL  = 1 * time.Minute // Время жизни кэша
 )
 
 type CachedData struct {

@@ -17,15 +17,15 @@ export default function NavBar() {
     <nav className="navbar">
       <h2 className="logo">TrendScope</h2>
       <div className="nav-links">
-        <Link to="/" className="nav-link">Главная</Link>
-        <Link to="/trends" className="nav-link">Тренды</Link>
-        <Link to="/categories" className="nav-link">Категории</Link>
+        <Link to="/" className="nav-link">Home</Link>
+        <Link to="/trends" className="nav-link">Current trends</Link>
+        <Link to="/categories" className="nav-link">Categories</Link>
       </div>
       <div className="search-container">
         <input
           type="text"
           className="search-input"
-          placeholder="🔍 Искать тренды..."
+          placeholder="🔍 Search trend..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={handleSearch}

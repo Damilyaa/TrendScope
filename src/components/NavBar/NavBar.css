@@ -16,6 +16,7 @@
     display: flex;
     align-items: center;
     gap: 3.5rem;
+    margin-left: 8rem;
   }
   
   .nav-link {

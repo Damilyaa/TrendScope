@@ -20,11 +20,11 @@ type GeminiAPI struct {
 }
 
 func (g *GeminiAPI) AnalyzeTrends() ([]models.Trend, error) {
-	prompt := `Generate a JSON array of 5 unique current technology trends as of 2025. Each trend should be an object with the following fields:
+	prompt := `Generate a JSON array of 6 unique current trends (could be any of this categorie:technologies, politics, education, fashion, business, health, sport, entertainment, social media trends, science)  as of 2025. Each trend should be an object with the following fields:
     - id (number)
     - name (string)
     - tag (string, lowercase version of name with no spaces)
-    - description (string, at least 5 sentences)
+    - description (string, maximum 3 sentences)
     - category (string)
     - growth (string)
     - chartData (array of 7 numbers for monthly growth)
@@ -40,7 +40,8 @@ func (g *GeminiAPI) AnalyzeTrends() ([]models.Trend, error) {
     - Ensure trends are diverse and not repeated across responses
     - For socialPosts, use platforms: Twitter, Reddit, or LinkedIn
     - For articles and socialPosts, use real, valid URLs (e.g., https://example.com/article1) instead of placeholders like "#"
-    - Generate realistic demo content based on plausible technology trends
+	- Artickes should be valid and popular (to be a trend)
+    - Generate realistic demo content based on plausible trends
     - Ensure the output is valid JSON`
 
 	// Формируем тело запроса с параметрами генерации

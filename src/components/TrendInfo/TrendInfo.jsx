@@ -75,7 +75,7 @@ export default function TrendInfo() {
           severity="error"
           action={
             <Button color="inherit" size="small" onClick={fetchTrendData}>
-              Попробовать снова
+              Try again
             </Button>
           }
         >
@@ -86,7 +86,7 @@ export default function TrendInfo() {
   }
 
   const chartData = {
-    labels: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл"],
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
     datasets: [
       {
         label: "Рост популярности",
@@ -168,7 +168,7 @@ export default function TrendInfo() {
               }}
             >
               <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
-                График популярности
+                Popaulerity chart
               </Typography>
               <Line data={chartData} options={chartOptions} />
             </Paper>
@@ -180,7 +180,7 @@ export default function TrendInfo() {
                 sx={{ display: "flex", alignItems: "center", gap: 1, mb: 3 }}
               >
                 <ArticleIcon color="primary" />
-                Актуальные статьи
+                Articles
               </Typography>
               <Box component="ul" sx={{ m: 0, pl: 2 }}>
                 {trend.articles.map((article, i) => (
@@ -215,7 +215,7 @@ export default function TrendInfo() {
                 gutterBottom
                 sx={{ display: "flex", alignItems: "center", gap: 1, mb: 3 }}
               >
-                Социальные обсуждения
+                Social media
               </Typography>
               {trend.socialPosts.map((post, i) => (
                 <Card
@@ -252,7 +252,7 @@ export default function TrendInfo() {
                       rel="noopener noreferrer"
                       component="a" // Явно указываем, что это ссылка
                     >
-                      Читать далее
+                      Learn more
                     </Button>
                   </CardActions>
                 </Card>
@@ -269,7 +269,7 @@ export default function TrendInfo() {
               /* Add share functionality */
             }}
           >
-            Поделиться
+            Share
           </Button>
         </Box>
       </Container>
