@@ -86,7 +86,9 @@ export default function Trends() {
         throw new Error("Не удалось загрузить тренды");
       }
       const data = await response.json();
-      setTrends(data);
+      // Если data не массив, но есть поле trends, используем его
+      const trendsArray = Array.isArray(data) ? data : data.trends || [];
+      setTrends(trendsArray);
     } catch (err) {
       setError(err.message);
     } finally {

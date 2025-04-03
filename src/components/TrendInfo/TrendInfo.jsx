@@ -41,10 +41,9 @@ export default function TrendInfo() {
       if (!response.ok) {
         throw new Error("Не удалось загрузить данные о трендах");
       }
-      const data = await response.json();
-      // Предполагается, что данные имеют корневой ключ "trends"
-      const trends = data.trends;
-      const foundTrend = trends.find((t) => t.name === decodeURIComponent(trendName));
+      const data = await response.json();// Ожидаем массив трендов
+      console.log("Полученные данные:", data);
+      const foundTrend = data.find((t) => t.name === decodeURIComponent(trendName));
       if (!foundTrend) {
         throw new Error(`Тренд "${trendName}" не найден`);
       }

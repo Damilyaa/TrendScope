@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"time"
 	"trendscope/internal/models"
 	"trendscope/internal/storage"
 )
@@ -47,12 +48,17 @@ func GetTrendsHandler(analyzer models.TrendAnalyzer) http.HandlerFunc {
 			log.Println("Используем актуальный кэш")
 			trends = cachedTrends
 		}
-
+		response := models.Response{
+			Trends:    trends,
+			Details:   cachedDetails,                   // Используем данные из кэша
+			Timestamp: time.Now().Format(time.RFC3339), // Или из кэша
+		}
 		// Формируем ответ
 		w.Header().Set("Content-Type", "application/json")
-		if err := json.NewEncoder(w).Encode(trends); err != nil {
+		if err := json.NewEncoder(w).Encode(response); err != nil {
 			log.Printf("Ошибка формирования ответа: %v", err)
 			http.Error(w, "Ошибка сервера", http.StatusInternalServerError)
 		}
 	}
+
 }

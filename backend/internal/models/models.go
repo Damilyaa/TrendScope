@@ -47,3 +47,9 @@ type GeminiAPI struct {
 	APIKey      string
 	Client      *http.Client
 }
+
+type Response struct {
+	Trends    []Trend     `json:"trends"`
+	Details   interface{} `json:"details"`
+	Timestamp string      `json:"timestamp"`
+}

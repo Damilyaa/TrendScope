@@ -8,7 +8,6 @@ import (
 	"trendscope/internal/handlers"
 )
 
-// Middleware для добавления CORS-заголовков
 func corsMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
@@ -36,13 +35,10 @@ func main() {
 		},
 	}
 
-	// Создаём мультиплексор
 	mux := http.NewServeMux()
 
-	// Регистрируем обработчик
 	mux.HandleFunc("/api/trends", handlers.GetTrendsHandler(gemini))
 
-	// Оборачиваем в middleware CORS
 	handler := corsMiddleware(mux)
 
 	log.Println("Server started on :8080")
