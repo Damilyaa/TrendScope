@@ -21,22 +21,71 @@ type CachedData struct {
 }
 
 // SaveAllData сохраняет тренды и детали в кэш
-func SaveAllData(trends []models.Trend, details []models.Trend) error {
+// SaveAllData добавляет новые тренды и детали к уже сохранённым данным,
+// присваивая каждому новому объекту уникальный идентификатор, если он не задан.
+func SaveAllData(newTrends []models.Trend, newDetails []models.Trend) error {
 	mu.Lock()
 	defer mu.Unlock()
 
-	data := CachedData{
-		Trends:    trends,
-		Details:   details,
-		Timestamp: time.Now(),
-	}
-
-	file, err := json.MarshalIndent(data, "", "  ")
+	// Загружаем существующие данные
+	existingTrends, existingDetails, err := loadData()
 	if err != nil {
 		return err
 	}
 
-	return os.WriteFile(cacheFile, file, 0644)
+	// Если поля nil, инициализируем их пустыми срезами
+	if existingTrends == nil {
+		existingTrends = []models.Trend{}
+	}
+	if existingDetails == nil {
+		existingDetails = []models.Trend{}
+	}
+
+	// Определяем максимальный существующий ID
+	maxID := 0
+	for _, t := range existingTrends {
+		if t.ID > maxID {
+			maxID = t.ID
+		}
+	}
+	for _, d := range existingDetails {
+		if d.ID > maxID {
+			maxID = d.ID
+		}
+	}
+
+	// Добавляем новые тренды: если у объекта ID == 0, назначаем новый
+	for i, t := range newTrends {
+		if t.ID == 0 {
+			maxID++
+			newTrends[i].ID = maxID
+		}
+		existingTrends = append(existingTrends, newTrends[i])
+	}
+
+	// Добавляем новые детали аналогично
+	for i, d := range newDetails {
+		if d.ID == 0 {
+			maxID++
+			newDetails[i].ID = maxID
+		}
+		existingDetails = append(existingDetails, newDetails[i])
+	}
+
+	// Формируем обновлённую структуру с новым Timestamp
+	data := CachedData{
+		Trends:    existingTrends,
+		Details:   existingDetails,
+		Timestamp: time.Now(),
+	}
+
+	// Сериализуем данные с отступами для удобства чтения
+	fileContent, err := json.MarshalIndent(data, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	return os.WriteFile(cacheFile, fileContent, 0644)
 }
 
 // LoadAllData загружает данные из кэша с проверкой актуальности
@@ -111,7 +160,7 @@ func LoadTrendDetail(trendID int) (*models.Trend, error) {
 
 // Вспомогательные функции
 func loadData() ([]models.Trend, []models.Trend, error) {
-	file, err := os.ReadFile(cacheFile)
+	fileContent, err := os.ReadFile(cacheFile)
 	if err != nil {
 		if os.IsNotExist(err) {
 			return []models.Trend{}, []models.Trend{}, nil
@@ -120,8 +169,16 @@ func loadData() ([]models.Trend, []models.Trend, error) {
 	}
 
 	var data CachedData
-	if err := json.Unmarshal(file, &data); err != nil {
+	if err := json.Unmarshal(fileContent, &data); err != nil {
 		return nil, nil, err
+	}
+
+	// Если поля равны null, заменяем на пустой срез
+	if data.Trends == nil {
+		data.Trends = []models.Trend{}
+	}
+	if data.Details == nil {
+		data.Details = []models.Trend{}
 	}
 
 	return data.Trends, data.Details, nil

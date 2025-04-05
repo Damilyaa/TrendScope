@@ -20,29 +20,27 @@ type GeminiAPI struct {
 }
 
 func (g *GeminiAPI) AnalyzeTrends() ([]models.Trend, error) {
-	prompt := `Generate a JSON array of 6 unique current trends (could be any of this categorie:technologies, politics, education, fashion, business, health, sport, entertainment, social media trends, science)  as of 2025. Each trend should be an object with the following fields:
-    - id (number)
-    - name (string)
-    - tag (string, lowercase version of name with no spaces)
-    - description (string, maximum 3 sentences)
-    - category (string)
-    - growth (string)
-    - chartData (array of 7 numbers for monthly growth)
-    - articles (array of 3 objects with title and link fields)
-    - socialPosts (array of 3 objects with platform, content and link fields)
-    - keyPlayers (array of strings)
-    - useCases (array of strings)
-    - pros (array of strings)
-    - cons (array of strings)
-    - futureOutlook (string, at least 5 sentences)
-    
-    Additional requirements:
-    - Ensure trends are diverse and not repeated across responses
-    - For socialPosts, use platforms: Twitter, Reddit, or LinkedIn
-    - For articles and socialPosts, use real, valid URLs (e.g., https://example.com/article1) instead of placeholders like "#"
-	- Artickes should be valid and popular (to be a trend)
-    - Generate realistic demo content based on plausible trends
-    - Ensure the output is valid JSON`
+	prompt := `Generate a JSON array of exactly 6 unique and diverse current trends as of 2025. Each trend should be a JSON object with the following fields:
+
+	- id (number; set to 0 or leave out to allow auto-assignment)
+	- name (string; the trend's official name)
+	- tag (string; a lowercase, hyphenated version of the name, no spaces)
+	- description (string; up to 3 concise sentences)
+	- category (string; must be exactly one of the following predefined categories: "technologies", "politics", "education", "fashion", "business", "health", "sport", "entertainment", "social media", "science"; the value must strictly match one of these)
+	- growth (string; e.g. "Rapid", "Stable", "Declining", etc.)
+	- chartData (array of 7 numbers showing monthly growth, must be realistic)
+	- articles (array of 3 objects with 'title' and 'link' fields; use real popular article URLs from reputable sources)
+	- socialPosts (array of 3 objects with 'platform' (Twitter, Reddit, or LinkedIn), 'content', and 'link' fields)
+	- keyPlayers (array of strings; names of companies, individuals, or organizations)
+	- useCases (array of strings; practical or emerging use cases)
+	- pros (array of strings; benefits or advantages)
+	- cons (array of strings; drawbacks or risks)
+	- futureOutlook (string; must be at least 5 well-formed sentences describing long-term expectations and potential)
+
+	Additional instructions:
+	- Ensure each trend belongs to a unique category.
+	- No duplicate tags or trends.
+	- Output must be a valid JSON array, with no markdown formatting, code fencing, or extra text — only the raw JSON output.`
 
 	// Формируем тело запроса с параметрами генерации
 	requestPayload := map[string]interface{}{
@@ -134,4 +132,42 @@ func (g *GeminiAPI) AnalyzeTrends() ([]models.Trend, error) {
 	}
 
 	return trends, nil
+}
+
+func (g *GeminiAPI) GetTrends() ([]models.Trend, error) {
+	// Загружаем кэшированные данные
+	cachedTrends, _, isStale, err := storage.LoadAllData()
+	if err != nil {
+		return nil, err
+	}
+
+	// Если кэш пуст, синхронно получаем новые данные
+	if len(cachedTrends) == 0 {
+		newTrends, err := g.AnalyzeTrends()
+		if err != nil {
+			return nil, err
+		}
+		return newTrends, nil
+	}
+
+	// Если данные устарели, запускаем обновление в фоне
+	if isStale {
+		go func() {
+			log.Println("Фоновое обновление трендов...")
+			newTrends, err := g.AnalyzeTrends()
+			if err != nil {
+				log.Printf("Ошибка при обновлении трендов: %v", err)
+				return
+			}
+			// При сохранении новые данные добавляются к кэшу
+			if err := storage.SaveAllData(newTrends, nil); err != nil {
+				log.Printf("Ошибка сохранения обновлённых трендов: %v", err)
+			} else {
+				log.Println("Кэш трендов успешно обновлён.")
+			}
+		}()
+	}
+
+	// Отдаем сразу кэшированные данные
+	return cachedTrends, nil
 }
