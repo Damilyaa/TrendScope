@@ -18,7 +18,6 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import "./Trends.css";
 import { formatDate } from "../../utils/dateUtils";
 
-// Компонент для отображения отдельного тренда
 const TrendCard = ({ trend }) => {
   const navigate = useNavigate();
 
@@ -69,14 +68,12 @@ const TrendCard = ({ trend }) => {
   );
 };
 
-// Основной компонент Trends
 export default function Trends() {
   const [trends, setTrends] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const currentDate = formatDate();
 
-  // Функция для загрузки данных
   const fetchTrends = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -96,12 +93,10 @@ export default function Trends() {
     }
   }, []);
 
-  // Загрузка данных при монтировании компонента
   useEffect(() => {
     fetchTrends();
   }, [fetchTrends]);
 
-  // Отображение индикатора загрузки
   if (loading) {
     return (
       <Container
@@ -113,7 +108,6 @@ export default function Trends() {
     );
   }
 
-  // Отображение ошибки, если она произошла
   if (error) {
     return (
       <Container maxWidth="md">
@@ -131,7 +125,6 @@ export default function Trends() {
     );
   }
 
-  // Основное отображение трендов
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <motion.div

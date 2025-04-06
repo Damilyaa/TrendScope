@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+
 	"trendscope/internal/models"
 	"trendscope/internal/storage"
 	"trendscope/pkg"
@@ -26,7 +27,7 @@ func (g *GeminiAPI) AnalyzeTrends() ([]models.Trend, error) {
 	- name (string; the trend's official name)
 	- tag (string; a lowercase, hyphenated version of the name, no spaces)
 	- description (string; up to 3 concise sentences)
-	- category (string; must be exactly one of the following predefined categories: "technologies", "politics", "education", "fashion", "business", "health", "sport", "entertainment", "social media", "science"; the value must strictly match one of these)
+	- category (string; must be exactly one of the following predefined categories: "technologies", "politics", "education", "fashion", "business", "health", "sport", "entertainment", "social media", "science"; the value must strictly match one of these; and must be capitalized)
 	- growth (string; e.g. "Rapid", "Stable", "Declining", etc.)
 	- chartData (array of 7 numbers showing monthly growth, must be realistic)
 	- articles (array of 3 objects with 'title' and 'link' fields; use real popular article URLs from reputable sources)
