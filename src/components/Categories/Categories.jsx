@@ -174,7 +174,7 @@ export default function Categories() {
           sx={{
             fontWeight: 700,
             mb: 4,
-            background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
+            background: "linear-gradient(45deg, #2c3e50 30%, #30a7d2 90%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}

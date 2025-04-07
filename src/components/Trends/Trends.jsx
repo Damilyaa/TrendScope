@@ -44,11 +44,11 @@ const TrendCard = ({ trend }) => {
         <CardContent sx={{ flexGrow: 1 }}>
           <Box display="flex" alignItems="center" mb={2}>
             <TrendingUpIcon color="primary" sx={{ mr: 1 }} />
-            <Typography variant="h6" component="h2" gutterBottom>
+            <Typography variant="h6" component="h2" gutterBottom sx={{ color: "rgb(26, 77, 128)" }}>
               {trend.name}
             </Typography>
           </Box>
-          <Typography variant="body2" color="text.secondary" paragraph>
+          <Typography variant="body2" color="text.secondary" paragraph sx={{ color: "rgba(26, 77, 128, 0.78)" }}>
             {trend.description}
           </Typography>
           <Box mt={2}>
@@ -57,6 +57,7 @@ const TrendCard = ({ trend }) => {
               color="primary"
               variant="outlined"
               size="small"
+              sx={{ color: "rgba(26, 77, 128, 0.78)" }}
             />
           </Box>
         </CardContent>
@@ -72,6 +73,7 @@ export default function Trends() {
   const [trends, setTrends] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [limit, setLimit] = useState(9); 
   const currentDate = formatDate();
 
   const fetchTrends = useCallback(async () => {
@@ -140,7 +142,7 @@ export default function Trends() {
           sx={{
             fontWeight: 700,
             mb: 4,
-            background: "linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)",
+            background: "linear-gradient(45deg, #2c3e50 30%, #30a7d2 90%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
           }}
@@ -162,12 +164,26 @@ export default function Trends() {
         </Typography>
 
         <Grid container spacing={3}>
-          {trends.map((trend) => (
+          {trends.slice(0, limit).map((trend) => (
             <Grid item xs={12} sm={6} md={4} key={trend.id}>
               <TrendCard trend={trend} />
             </Grid>
           ))}
         </Grid>
+
+        <Box mt={2} display="flex" justifyContent="center">
+          {limit < trends.length && (
+            <Button
+              variant="contained"
+              onClick={() => setLimit(limit + 9)}
+              sx={{ mr: 2 }}
+             
+            >
+             Show more
+            </Button>
+          )}
+          
+        </Box>
       </motion.div>
     </Container>
   );

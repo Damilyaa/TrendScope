@@ -9,7 +9,7 @@
   .trends-title {
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    color: #333;
+    color: #2c3e50;
     text-align: center;
     border-bottom: 2px solid #6c63ff;
     padding-bottom: 10px;
@@ -51,7 +51,7 @@
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(90deg, #2196F3, #21CBF3);
+    background: linear-gradient(90deg, #2c3e50, #30a7d2);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease;
@@ -64,7 +64,7 @@
   .trend-title {
     font-size: 1.2rem;
     font-weight: 600;
-    color: #333;
+    color: #2c3e50;
     margin-bottom: 0.5rem;
   }
   
@@ -90,7 +90,7 @@
   }
   
   .error-container button {
-    background: #3498db;
+    background: #2c3e50;
     color: white;
     border: none;
     padding: 0.8rem 1.5rem;

@@ -1,5 +1,6 @@
 import React from "react";
 import "./Home.css";
+import Trends from '../Trends/Trends'
 
 
 export default function Home() {
@@ -15,7 +16,6 @@ export default function Home() {
         </div>
       </header>
 
-      {/* How It Works */}
       <section className="how-it-works">
         <h2>How does it work</h2>
         <div className="steps">
@@ -33,6 +33,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* <Trends /> */}
 
       {/* Features */}
       <section className="features">
