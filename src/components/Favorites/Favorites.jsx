@@ -49,7 +49,7 @@ const FavoriteCard = ({ trend, onFavoriteToggle, isFavorited }) => {
         </Typography>
         <IconButton
             onClick={(e) => {
-            e.stopPropagation();  // Prevent the card from being clicked when unfavoriting
+            e.stopPropagation();  
             onFavoriteToggle(trend);
             }}
             color={isFavorited ? "error" : "default"}
