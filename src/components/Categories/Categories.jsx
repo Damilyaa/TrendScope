@@ -88,6 +88,10 @@ const TrendCard = ({ trend, onFavoriteToggle, isFavorited }) => {
                 onFavoriteToggle(trend);
               }}
               color={isFavorited ? "favorites" : "default"}
+              sx={{
+                position: "relative",
+                top: "-15px", 
+              }}
             >
               <FavoriteIcon />
             </IconButton>

@@ -55,9 +55,14 @@ const TrendCard = ({ trend, onFavoriteToggle, isFavorited }) => {
                 onFavoriteToggle(trend);
               }}
               color={isFavorited ? "favorites" : "default"}
+              sx={{
+                position: "relative",
+                top: "-15px", 
+              }}
             >
               <FavoriteIcon />
             </IconButton>
+
           </Box>
           <Typography variant="body2" color="text.secondary" paragraph sx={{ color: "rgba(26, 77, 128, 0.78)" }}>
             {trend.description}
@@ -104,13 +109,20 @@ export default function Trends() {
       }
       const data = await response.json();
       const trendsArray = Array.isArray(data) ? data : data.trends || [];
-      setTrends(trendsArray);
+  
+      // Remove duplicates based on trend id
+      const uniqueTrends = trendsArray.filter((trend, index, self) =>
+        index === self.findIndex((t) => t.id === trend.id)
+      );
+  
+      setTrends(uniqueTrends);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
   }, []);
+  
 
   useEffect(() => {
     fetchTrends();
