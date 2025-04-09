@@ -92,7 +92,6 @@ export default function Trends() {
   const [error, setError] = useState(null);
   const [limit, setLimit] = useState(9);
   const [favorites, setFavorites] = useState(() => {
-    // Initialize favorites from localStorage (if any)
     const savedFavorites = localStorage.getItem("favorites");
     return savedFavorites ? JSON.parse(savedFavorites) : [];
   });
