@@ -20,6 +20,7 @@ export default function NavBar() {
         <Link to="/" className="nav-link">Home</Link>
         <Link to="/trends" className="nav-link">Current trends</Link>
         <Link to="/categories" className="nav-link">Categories</Link>
+        <Link to="/favorites" className="nav-link">Favorites</Link>
       </div>
       <div className="search-container">
         <input
@@ -30,6 +31,9 @@ export default function NavBar() {
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={handleSearch}
         />
+      </div>
+      <div className="auth">
+        <Link to="/auth" className="nav-link">Auth</Link>
       </div>
     </nav>
   );

@@ -17,8 +17,10 @@ import {
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import "./Trends.css";
 import { formatDate } from "../../utils/dateUtils";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { IconButton } from '@mui/material';
 
-const TrendCard = ({ trend }) => {
+const TrendCard = ({ trend, onFavoriteToggle, isFavorited }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -47,6 +49,15 @@ const TrendCard = ({ trend }) => {
             <Typography variant="h6" component="h2" gutterBottom sx={{ color: "rgb(26, 77, 128)" }}>
               {trend.name}
             </Typography>
+            <IconButton
+              onClick={(e) => {
+                e.stopPropagation();  
+                onFavoriteToggle(trend);
+              }}
+              color={isFavorited ? "favorites" : "default"}
+            >
+              <FavoriteIcon />
+            </IconButton>
           </Box>
           <Typography variant="body2" color="text.secondary" paragraph sx={{ color: "rgba(26, 77, 128, 0.78)" }}>
             {trend.description}
@@ -69,11 +80,18 @@ const TrendCard = ({ trend }) => {
   );
 };
 
+
 export default function Trends() {
   const [trends, setTrends] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [limit, setLimit] = useState(9); 
+  const [limit, setLimit] = useState(9);
+  const [favorites, setFavorites] = useState(() => {
+    // Initialize favorites from localStorage (if any)
+    const savedFavorites = localStorage.getItem("favorites");
+    return savedFavorites ? JSON.parse(savedFavorites) : [];
+  });
+
   const currentDate = formatDate();
 
   const fetchTrends = useCallback(async () => {
@@ -85,7 +103,6 @@ export default function Trends() {
         throw new Error("Не удалось загрузить тренды");
       }
       const data = await response.json();
-      // Если data не массив, но есть поле trends, используем его
       const trendsArray = Array.isArray(data) ? data : data.trends || [];
       setTrends(trendsArray);
     } catch (err) {
@@ -98,6 +115,20 @@ export default function Trends() {
   useEffect(() => {
     fetchTrends();
   }, [fetchTrends]);
+
+  const handleFavoriteToggle = (trend) => {
+    const isAlreadyFavorited = favorites.some((fav) => fav.id === trend.id);
+    let updatedFavorites;
+    
+    if (isAlreadyFavorited) {
+      updatedFavorites = favorites.filter((fav) => fav.id !== trend.id);
+    } else {
+      updatedFavorites = [...favorites, trend];
+    }
+
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+  };
 
   if (loading) {
     return (
@@ -166,7 +197,11 @@ export default function Trends() {
         <Grid container spacing={3}>
           {trends.slice(0, limit).map((trend) => (
             <Grid item xs={12} sm={6} md={4} key={trend.id}>
-              <TrendCard trend={trend} />
+              <TrendCard
+                trend={trend}
+                onFavoriteToggle={handleFavoriteToggle}
+                isFavorited={favorites.some((fav) => fav.id === trend.id)}
+              />
             </Grid>
           ))}
         </Grid>
@@ -177,12 +212,10 @@ export default function Trends() {
               variant="contained"
               onClick={() => setLimit(limit + 9)}
               sx={{ mr: 2 }}
-             
             >
-             Show more
+              Show more
             </Button>
           )}
-          
         </Box>
       </motion.div>
     </Container>

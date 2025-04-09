@@ -18,6 +18,8 @@ import {
 } from "@mui/material";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import "./Categories.css";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { IconButton } from '@mui/material';
 
 const fetchTrendsData = async () => {
   try {
@@ -51,7 +53,7 @@ const groupTrendsByCategory = (trends) => {
   }, {});
 };
 
-const TrendCard = ({ trend }) => {
+const TrendCard = ({ trend, onFavoriteToggle, isFavorited }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -77,26 +79,34 @@ const TrendCard = ({ trend }) => {
         <CardContent sx={{ flexGrow: 1 }}>
           <Box display="flex" alignItems="center" mb={2}>
             <TrendingUpIcon color="primary" sx={{ mr: 1 }} />
-            <Typography variant="h6" component="h2" gutterBottom>
+            <Typography variant="h6" component="h2" gutterBottom sx={{ color: "rgb(26, 77, 128)" }}>
               {trend.name}
             </Typography>
+            <IconButton
+              onClick={(e) => {
+                e.stopPropagation();  
+                onFavoriteToggle(trend);
+              }}
+              color={isFavorited ? "favorites" : "default"}
+            >
+              <FavoriteIcon />
+            </IconButton>
           </Box>
-          <Typography variant="body2" color="text.secondary" paragraph>
+          <Typography variant="body2" color="text.secondary" paragraph sx={{ color: "rgba(26, 77, 128, 0.78)" }}>
             {trend.description}
           </Typography>
-          <Box display="flex" gap={1} flexWrap="wrap" mt={2}>
-            {trend.keyPlayers.map((player, index) => (
-              <Chip key={index} label={player} color="primary" variant="outlined" size="small" />
-            ))}
+          <Box mt={2}>
+            <Chip
+              label={`#${trend.tag[0]}`}
+              color="primary"
+              variant="outlined"
+              size="small"
+              sx={{ color: "rgba(26, 77, 128, 0.78)" }}
+            />
           </Box>
-          <Typography variant="body2" color="primary" sx={{ mt: 2 }}>
-            Рост: {trend.growth}
-          </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" color="primary">
-            Подробнее
-          </Button>
+          <Button size="small" color="primary">Learn More</Button>
         </CardActions>
       </Card>
     </motion.div>
@@ -108,6 +118,12 @@ export default function Categories() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [favorites, setFavorites] = useState(() => {
+      // Initialize favorites from localStorage (if any)
+      const savedFavorites = localStorage.getItem("favorites");
+      return savedFavorites ? JSON.parse(savedFavorites) : [];
+    });
+  
 
   const fetchTrends = useCallback(async () => {
     setLoading(true);
@@ -133,6 +149,20 @@ export default function Categories() {
   useEffect(() => {
     fetchTrends();
   }, [fetchTrends]);
+
+  const handleFavoriteToggle = (trend) => {
+    const isAlreadyFavorited = favorites.some((fav) => fav.id === trend.id);
+    let updatedFavorites;
+    
+    if (isAlreadyFavorited) {
+      updatedFavorites = favorites.filter((fav) => fav.id !== trend.id);
+    } else {
+      updatedFavorites = [...favorites, trend];
+    }
+
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+  };
 
   const handleCategoryChange = (event, newValue) => {
     setSelectedCategory(newValue);
@@ -207,7 +237,11 @@ export default function Categories() {
             <Grid container spacing={3}>
               {groupedTrends[selectedCategory].map((trend) => (
                 <Grid item xs={12} sm={6} md={4} key={trend.id}>
-                  <TrendCard trend={trend} />
+                  <TrendCard
+                trend={trend}
+                onFavoriteToggle={handleFavoriteToggle}
+                isFavorited={favorites.some((fav) => fav.id === trend.id)}
+              />
                 </Grid>
               ))}
             </Grid>

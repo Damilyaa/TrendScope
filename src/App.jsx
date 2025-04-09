@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
+import Auth from "./components/Auth/Auth";
+import Favorites from "./components/Favorites/Favorites";
 
 // Lazy load components for better performance
 const Home = React.lazy(() => import("./components/Home/Home"));
@@ -27,6 +29,10 @@ const theme = createTheme({
     background: {
       default: "#F5F7F9", // Very light blue-gray
       paper: "#FFFFFF",
+    },
+    favorites: {
+      main: "#b51b2f",
+
     },
     text: {
       primary: "#4A4A4A", // Soft dark gray
@@ -214,6 +220,8 @@ export default function App() {
                 <Route path="/trends" element={<Trends />} />
                 <Route path="/categories" element={<Categories />} />
                 <Route path="/trend/:trendName" element={<Trend />} />
+                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/auth" element={<Auth />} />
               </Routes>
             </Suspense>
           </main>

@@ -57,4 +57,10 @@
   .search-input:focus {
     border-color: #254768de;
   }
+
+  .auth {
+    justify-content: space-between;
+    gap: 3.5rem;
+    display: flex;
+  }
   

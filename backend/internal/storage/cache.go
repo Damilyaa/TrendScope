@@ -5,6 +5,7 @@ import (
 	"os"
 	"sync"
 	"time"
+
 	"trendscope/internal/models"
 )
 
@@ -20,20 +21,15 @@ type CachedData struct {
 	Timestamp time.Time      `json:"timestamp"`
 }
 
-// SaveAllData сохраняет тренды и детали в кэш
-// SaveAllData добавляет новые тренды и детали к уже сохранённым данным,
-// присваивая каждому новому объекту уникальный идентификатор, если он не задан.
 func SaveAllData(newTrends []models.Trend, newDetails []models.Trend) error {
 	mu.Lock()
 	defer mu.Unlock()
 
-	// Загружаем существующие данные
 	existingTrends, existingDetails, err := loadData()
 	if err != nil {
 		return err
 	}
 
-	// Если поля nil, инициализируем их пустыми срезами
 	if existingTrends == nil {
 		existingTrends = []models.Trend{}
 	}
@@ -41,7 +37,6 @@ func SaveAllData(newTrends []models.Trend, newDetails []models.Trend) error {
 		existingDetails = []models.Trend{}
 	}
 
-	// Определяем максимальный существующий ID
 	maxID := 0
 	for _, t := range existingTrends {
 		if t.ID > maxID {
@@ -85,7 +80,7 @@ func SaveAllData(newTrends []models.Trend, newDetails []models.Trend) error {
 		return err
 	}
 
-	return os.WriteFile(cacheFile, fileContent, 0644)
+	return os.WriteFile(cacheFile, fileContent, 0o644)
 }
 
 // LoadAllData загружает данные из кэша с проверкой актуальности
@@ -196,5 +191,5 @@ func saveData(trends []models.Trend, details []models.Trend) error {
 		return err
 	}
 
-	return os.WriteFile(cacheFile, file, 0644)
+	return os.WriteFile(cacheFile, file, 0o644)
 }
