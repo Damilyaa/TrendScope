@@ -191,8 +191,21 @@ const theme = createTheme({
 });
 
 const LoadingFallback = () => (
-  <div className="loading-container">
-    <div className="loading-spinner"></div>
+  <div style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh',
+    background: 'var(--background-default)'
+  }}>
+    <div style={{
+      width: '50px',
+      height: '50px',
+      border: '4px solid var(--primary-light)',
+      borderTop: '4px solid var(--primary-main)',
+      borderRadius: '50%',
+      animation: 'spin 1s linear infinite'
+    }}></div>
   </div>
 );
 
@@ -201,9 +214,24 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <div className="app-container">
+        <div style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: '#f5f5f5',
+          position: 'relative'
+        }}>
           <NavBar />
-          <main className="main-content">
+          <main style={{
+            flex: 1,
+            padding: '0 2rem 2rem 2rem',
+            maxWidth: '1400px',
+            margin: '0 auto',
+            width: '100%',
+            '@media (max-width: 768px)': {
+              padding: '1rem'
+            }
+          }}>
             <Suspense fallback={<LoadingFallback />}>
               <Routes>
                 <Route path="/" element={<Home />} />

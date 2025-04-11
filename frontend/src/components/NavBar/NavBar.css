@@ -6,9 +6,9 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 1rem 1.5rem;
     border-radius: 32px;
-    width: 100%;
-    max-width: 1800px;
-    margin: 0 auto;
+    width: 80%;
+    max-width: 100px;
+    margin: 10rem;
     margin-top: 1rem;
     max-height: 6.5rem;
 }

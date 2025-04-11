@@ -30,13 +30,54 @@ const TrendCard = ({ trend, onFavoriteToggle, isFavorited }) => {
   return (
     <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
       <Card
-        className="trend-card"
+        sx={{
+          cursor: 'pointer',
+          background: 'white',
+          borderRadius: '12px',
+          overflow: 'hidden',
+          position: 'relative',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          transition: 'all 0.3s ease',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '4px',
+            background: 'linear-gradient(90deg, #254668, #30a7d2)',
+            transform: 'scaleX(0)',
+            transformOrigin: 'left',
+            transition: 'transform 0.3s ease'
+          },
+          '&:hover::before': {
+            transform: 'scaleX(1)'
+          },
+          '&:hover': {
+            boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
+            transform: 'translateY(-4px)'
+          },
+          '@media (max-width: 600px)': {
+            height: 'auto'
+          }
+        }}
         onClick={handleClick}
       >
-        <CardContent className="trend-card-content">
-          <Box className="trend-header">
+        <CardContent sx={{ flexGrow: 1 }}>
+          <Box sx={{
+            display: 'flex',
+            alignItems: 'start',
+            marginBottom: '16px'
+          }}>
             <TrendingUpIcon color="primary" sx={{ mr: 1 }} />
-            <Typography variant="h6" component="h2" className="trend-title">
+            <Typography variant="h6" component="h2" sx={{
+              fontSize: '1.2rem',
+              fontWeight: 600,
+              color: '#254668',
+              marginRight: '8px'
+            }}>
               {trend.name}
             </Typography>
             <IconButton
@@ -45,12 +86,17 @@ const TrendCard = ({ trend, onFavoriteToggle, isFavorited }) => {
                 onFavoriteToggle(trend);
               }}
               color={isFavorited ? "favorites" : "default"}
-              className="favorite-button"
+              sx={{
+                position: 'relative',
+                top: '-15px'
+              }}
             >
               <FavoriteIcon />
             </IconButton>
           </Box>
-          <Typography variant="body2" className="trend-description" paragraph>
+          <Typography variant="body2" sx={{
+            color: 'rgba(26, 77, 128, 0.78)'
+          }} paragraph>
             {trend.description}
           </Typography>
           <Box mt={2}>
@@ -59,7 +105,9 @@ const TrendCard = ({ trend, onFavoriteToggle, isFavorited }) => {
               color="primary"
               variant="outlined"
               size="small"
-              className="trend-tag"
+              sx={{
+                color: 'rgba(26, 77, 128, 0.78)'
+              }}
             />
           </Box>
         </CardContent>
@@ -134,28 +182,78 @@ export default function Trends() {
   };
 
   return (
-    <Container className="trends-container">
-      <div className="trends-header">
-        <Typography variant="h3" component="h1" className="trends-title">
+    <Container sx={{
+      padding: '1rem 2rem 2rem 2rem',
+      maxWidth: '1200px',
+      margin: '0 auto',
+      textAlign: 'start',
+      '@media (max-width: 768px)': {
+        padding: '1rem'
+      }
+    }}>
+      <div style={{
+        marginBottom: '2rem',
+        textAlign: 'center'
+      }}>
+        <Typography variant="h3" component="h1" sx={{
+          fontSize: '2.5rem',
+          marginBottom: '1rem',
+          color: '#254668',
+          textAlign: 'center',
+          position: 'relative',
+          paddingBottom: '15px',
+          '@media (max-width: 768px)': {
+            fontSize: '2rem'
+          },
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            bottom: 0,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '100px',
+            height: '3px',
+            background: 'linear-gradient(90deg, #254668, #30a7d2)',
+            borderRadius: '3px'
+          }
+        }}>
           Current Trends
         </Typography>
-        <Typography variant="h6" component="h2" className="trends-subtitle">
+        <Typography variant="h6" component="h2" sx={{
+          fontSize: '1.2rem',
+          color: '#666',
+          marginBottom: '2rem',
+          textAlign: 'center',
+          '@media (max-width: 768px)': {
+            fontSize: '1rem'
+          }
+        }}>
           Discover what's trending today
         </Typography>
       </div>
 
       {loading ? (
-              <Box display="flex" justifyContent="center" alignItems="center" minHeight="300px">
-                <CircularProgress />
-              </Box>
-            ) : error ? (
-              <Alert severity="error" sx={{ mb: 2 }}>
-                {error}
-              </Alert>
-            ) : (
+        <Box display="flex" justifyContent="center" alignItems="center" minHeight="300px">
+          <CircularProgress />
+        </Box>
+      ) : error ? (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {error}
+        </Alert>
+      ) : (
         <>
-          <div className="trends-day">
-            <Typography variant="h5" className="trends-date">
+          <div style={{
+            background: '#f5f5f5',
+            padding: '20px',
+            marginBottom: '3rem',
+            borderRadius: '10px',
+            boxShadow: '0 3px 15px rgba(0, 0, 0, 0.1)'
+          }}>
+            <Typography variant="h5" sx={{
+              fontSize: '1.5rem',
+              color: '#666',
+              marginBottom: '1.5rem'
+            }}>
               {currentDate}
             </Typography>
             <Grid container spacing={3}>
@@ -172,12 +270,28 @@ export default function Trends() {
           </div>
 
           {trends.length > limit && (
-            <div className="load-more-container">
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '2rem'
+            }}>
               <Button 
                 variant="contained" 
                 color="primary" 
                 onClick={handleLoadMore}
-                className="load-more-button"
+                sx={{
+                  background: '#254668',
+                  color: 'white',
+                  border: 'none',
+                  padding: '0.75rem 1.5rem',
+                  borderRadius: '8px',
+                  fontSize: '1rem',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.3s ease',
+                  '&:hover': {
+                    background: '#1a365d'
+                  }
+                }}
               >
                 Load More
               </Button>
