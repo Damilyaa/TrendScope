@@ -8,13 +8,13 @@ import (
 type Trend struct {
 	ID            int          `json:"id"`
 	Name          string       `json:"name"`
-	Tag           string       `json:"tag"` // Новое поле
+	Tag           string       `json:"tag"`
 	Description   string       `json:"description"`
 	Category      string       `json:"category"`
 	Growth        string       `json:"growth"`
 	ChartData     []float64    `json:"chartData"`
-	Articles      []Article    `json:"articles"`    // Новое поле
-	SocialPosts   []SocialPost `json:"socialPosts"` // Новое поле
+	Articles      []Article    `json:"articles"`
+	SocialPosts   []SocialPost `json:"socialPosts"`
 	KeyPlayers    []string     `json:"keyPlayers,omitempty"`
 	UseCases      []string     `json:"useCases,omitempty"`
 	Pros          []string     `json:"pros,omitempty"`

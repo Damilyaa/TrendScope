@@ -43,7 +43,6 @@ func (g *GeminiAPI) AnalyzeTrends() ([]models.Trend, error) {
 	- No duplicate tags or trends.
 	- Output must be a valid JSON array, with no markdown formatting, code fencing, or extra text — only the raw JSON output.`
 
-	// Формируем тело запроса с параметрами генерации
 	requestPayload := map[string]interface{}{
 		"contents": []map[string]interface{}{
 			{
@@ -55,8 +54,8 @@ func (g *GeminiAPI) AnalyzeTrends() ([]models.Trend, error) {
 			},
 		},
 		"generationConfig": map[string]interface{}{
-			"temperature": 0.9, // Увеличивает случайность
-			"topK":        50,  // Увеличивает разнообразие
+			"temperature": 0.9,
+			"topK":        50,
 		},
 	}
 
@@ -66,7 +65,6 @@ func (g *GeminiAPI) AnalyzeTrends() ([]models.Trend, error) {
 		return nil, err
 	}
 
-	// Создаём запрос
 	req, err := http.NewRequest("POST", g.APIEndpoint, bytes.NewReader(data))
 	if err != nil {
 		log.Printf("Ошибка при создании запроса: %v", err)
@@ -74,7 +72,7 @@ func (g *GeminiAPI) AnalyzeTrends() ([]models.Trend, error) {
 	}
 	req.Header.Set("Content-Type", "application/json")
 	q := req.URL.Query()
-	q.Add("key", g.APIKey) // Оставляем только ключ в query
+	q.Add("key", g.APIKey)
 	req.URL.RawQuery = q.Encode()
 
 	resp, err := g.Client.Do(req)
@@ -136,13 +134,11 @@ func (g *GeminiAPI) AnalyzeTrends() ([]models.Trend, error) {
 }
 
 func (g *GeminiAPI) GetTrends() ([]models.Trend, error) {
-	// Загружаем кэшированные данные
 	cachedTrends, _, isStale, err := storage.LoadAllData()
 	if err != nil {
 		return nil, err
 	}
 
-	// Если кэш пуст, синхронно получаем новые данные
 	if len(cachedTrends) == 0 {
 		newTrends, err := g.AnalyzeTrends()
 		if err != nil {
@@ -151,7 +147,6 @@ func (g *GeminiAPI) GetTrends() ([]models.Trend, error) {
 		return newTrends, nil
 	}
 
-	// Если данные устарели, запускаем обновление в фоне
 	if isStale {
 		go func() {
 			log.Println("Фоновое обновление трендов...")
@@ -160,7 +155,6 @@ func (g *GeminiAPI) GetTrends() ([]models.Trend, error) {
 				log.Printf("Ошибка при обновлении трендов: %v", err)
 				return
 			}
-			// При сохранении новые данные добавляются к кэшу
 			if err := storage.SaveAllData(newTrends, nil); err != nil {
 				log.Printf("Ошибка сохранения обновлённых трендов: %v", err)
 			} else {
@@ -169,6 +163,5 @@ func (g *GeminiAPI) GetTrends() ([]models.Trend, error) {
 		}()
 	}
 
-	// Отдаем сразу кэшированные данные
 	return cachedTrends, nil
 }

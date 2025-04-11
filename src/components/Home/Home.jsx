@@ -7,7 +7,6 @@ export default function Home() {
   return (
     <>
     <div className="home-container">
-      {/* Hero Section */}
       <header className="hero">
         <div className="hero-content">
           <h1>Trends Analyzer</h1>
@@ -36,7 +35,6 @@ export default function Home() {
 
       {/* <Trends /> */}
 
-      {/* Features */}
       <section className="features">
         <h2>Main features</h2>
         <div className="features-grid">

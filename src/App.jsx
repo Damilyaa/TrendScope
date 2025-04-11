@@ -6,14 +6,11 @@ import Footer from "./components/Footer/Footer";
 import Auth from "./components/Auth/Auth";
 import Favorites from "./components/Favorites/Favorites";
 
-// Lazy load components for better performance
 const Home = React.lazy(() => import("./components/Home/Home"));
 const Trends = React.lazy(() => import("./components/Trends/Trends"));
 const TrendInfo = React.lazy(() => import("./components/TrendInfo/TrendInfo"));
 const Trend = React.lazy(() => import("./components/Trend/Trend"));
 const Categories = React.lazy(() => import("./components/Categories/Categories"));
-
-// Theme configuration with custom color palette and typography
 const theme = createTheme({
   palette: {
     primary: {
@@ -36,7 +33,7 @@ const theme = createTheme({
     },
     text: {
       primary: "#4A4A4A", // Soft dark gray
-      secondary: "#7C9EAB", // Matching primary color
+      secondary: "#7C9EAB", 
     },
     divider: "#E5E9EC", // Light gray for dividers
   },
@@ -193,7 +190,6 @@ const theme = createTheme({
   },
 });
 
-// Loading component shown while lazy-loaded components are being fetched
 const LoadingFallback = () => (
   <div style={{
     display: "flex",

@@ -104,7 +104,6 @@
     background: #2980b9;
   }
   
-  /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -123,7 +122,6 @@
     background: #555;
   }
   
-  /* Animation classes */
   .fade-enter {
     opacity: 0;
     transform: translateY(20px);
@@ -146,7 +144,6 @@
     transition: opacity 300ms ease-in, transform 300ms ease-out;
   }
   
-  /* Responsive adjustments */
   @media (max-width: 600px) {
     .trend-card {
       margin-bottom: 1rem;

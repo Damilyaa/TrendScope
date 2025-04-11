@@ -1,4 +1,3 @@
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -17,7 +16,6 @@
   background: #555;
 }
 
-/* Card hover effects */
 .MuiCard-root {
   transition: all 0.2s ease;
 }
@@ -27,7 +25,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Article link hover effect */
 .article-link {
   transition: all 0.2s ease;
   position: relative;
@@ -38,7 +35,6 @@
   padding-left: 8px;
 }
 
-/* Social post card styles */
 .social-post-card {
   border-left: 3px solid transparent;
   transition: all 0.2s ease;
@@ -49,7 +45,6 @@
   background-color: rgba(33, 150, 243, 0.05);
 }
 
-/* Share button hover effect */
 .share-button {
   transition: all 0.2s ease;
 }
@@ -59,7 +54,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive adjustments */
 @media (max-width: 600px) {
   .MuiContainer-root {
     padding: 16px !important;
@@ -74,7 +68,6 @@
   }
 }
 
-/* Loading animation */
 @keyframes shimmer {
   0% {
     background-position: -1000px 0;

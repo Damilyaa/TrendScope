@@ -42,8 +42,6 @@ export default function TrendInfo() {
         throw new Error("Не удалось загрузить данные о трендах");
       }
       const data = await response.json();
-  
-      // Ensure 'trends' is an array and is available
      
   
       const trends = data.trends;
@@ -273,17 +271,16 @@ export default function TrendInfo() {
           </Grid>
         </Grid>
 
-        <Box sx={{ mt: 4, display: "flex", justifyContent: "flex-end" }}>
+        {/* <Box sx={{ mt: 4, display: "flex", justifyContent: "flex-end" }}>
           <Button
             variant="outlined"
             startIcon={<ShareIcon />}
             onClick={() => {
-              /* Add share functionality */
             }}
           >
             Share
           </Button>
-        </Box>
+        </Box> */}
       </Container>
     </motion.div>
   );

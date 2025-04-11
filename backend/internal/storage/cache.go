@@ -12,7 +12,7 @@ import (
 var (
 	mu        sync.Mutex
 	cacheFile = "../parsedata/trends.json"
-	cacheTTL  = 1 * time.Hour // Время жизни кэша
+	cacheTTL  = 1 * time.Hour
 )
 
 type CachedData struct {
@@ -49,7 +49,6 @@ func SaveAllData(newTrends []models.Trend, newDetails []models.Trend) error {
 		}
 	}
 
-	// Добавляем новые тренды: если у объекта ID == 0, назначаем новый
 	for i, t := range newTrends {
 		if t.ID == 0 {
 			maxID++
@@ -58,7 +57,6 @@ func SaveAllData(newTrends []models.Trend, newDetails []models.Trend) error {
 		existingTrends = append(existingTrends, newTrends[i])
 	}
 
-	// Добавляем новые детали аналогично
 	for i, d := range newDetails {
 		if d.ID == 0 {
 			maxID++
@@ -67,14 +65,12 @@ func SaveAllData(newTrends []models.Trend, newDetails []models.Trend) error {
 		existingDetails = append(existingDetails, newDetails[i])
 	}
 
-	// Формируем обновлённую структуру с новым Timestamp
 	data := CachedData{
 		Trends:    existingTrends,
 		Details:   existingDetails,
 		Timestamp: time.Now(),
 	}
 
-	// Сериализуем данные с отступами для удобства чтения
 	fileContent, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		return err
@@ -83,7 +79,6 @@ func SaveAllData(newTrends []models.Trend, newDetails []models.Trend) error {
 	return os.WriteFile(cacheFile, fileContent, 0o644)
 }
 
-// LoadAllData загружает данные из кэша с проверкой актуальности
 func LoadAllData() ([]models.Trend, []models.Trend, bool, error) {
 	mu.Lock()
 	defer mu.Unlock()
@@ -91,12 +86,11 @@ func LoadAllData() ([]models.Trend, []models.Trend, bool, error) {
 	fileInfo, err := os.Stat(cacheFile)
 	if err != nil {
 		if os.IsNotExist(err) {
-			return nil, nil, true, nil // Кэш отсутствует, нужно обновить
+			return nil, nil, true, nil
 		}
 		return nil, nil, false, err
 	}
 
-	// Проверяем, устарел ли кэш
 	isStale := time.Since(fileInfo.ModTime()) > cacheTTL
 
 	file, err := os.ReadFile(cacheFile)
@@ -112,7 +106,6 @@ func LoadAllData() ([]models.Trend, []models.Trend, bool, error) {
 	return data.Trends, data.Details, isStale, nil
 }
 
-// SaveTrendDetail добавляет или обновляет детали тренда
 func SaveTrendDetail(detail models.Trend) error {
 	mu.Lock()
 	defer mu.Unlock()
@@ -122,7 +115,6 @@ func SaveTrendDetail(detail models.Trend) error {
 		return err
 	}
 
-	// Обновляем или добавляем детали
 	found := false
 	for i, d := range details {
 		if d.ID == detail.ID {
@@ -138,7 +130,6 @@ func SaveTrendDetail(detail models.Trend) error {
 	return saveData(trends, details)
 }
 
-// LoadTrendDetail загружает детали конкретного тренда по ID
 func LoadTrendDetail(trendID int) (*models.Trend, error) {
 	_, details, _, err := LoadAllData()
 	if err != nil {
@@ -153,7 +144,6 @@ func LoadTrendDetail(trendID int) (*models.Trend, error) {
 	return nil, os.ErrNotExist
 }
 
-// Вспомогательные функции
 func loadData() ([]models.Trend, []models.Trend, error) {
 	fileContent, err := os.ReadFile(cacheFile)
 	if err != nil {
@@ -168,7 +158,6 @@ func loadData() ([]models.Trend, []models.Trend, error) {
 		return nil, nil, err
 	}
 
-	// Если поля равны null, заменяем на пустой срез
 	if data.Trends == nil {
 		data.Trends = []models.Trend{}
 	}

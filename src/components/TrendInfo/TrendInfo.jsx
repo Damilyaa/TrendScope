@@ -41,7 +41,7 @@ export default function TrendInfo() {
       if (!response.ok) {
         throw new Error("Не удалось загрузить данные о трендах");
       }
-      const data = await response.json();// Ожидаем массив трендов
+      const data = await response.json();
       console.log("Полученные данные:", data);
       const foundTrend = data.find((t) => t.name === decodeURIComponent(trendName));
       if (!foundTrend) {
@@ -249,7 +249,7 @@ export default function TrendInfo() {
                       href={post.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      component="a" // Явно указываем, что это ссылка
+                      component="a" 
                     >
                       Learn more
                     </Button>
@@ -260,17 +260,17 @@ export default function TrendInfo() {
           </Grid>
         </Grid>
 
-        <Box sx={{ mt: 4, display: "flex", justifyContent: "flex-end" }}>
+        {/* <Box sx={{ mt: 4, display: "flex", justifyContent: "flex-end" }}>
           <Button
             variant="outlined"
             startIcon={<ShareIcon />}
             onClick={() => {
-              /* Add share functionality */
+              
             }}
           >
             Share
           </Button>
-        </Box>
+        </Box> */}
       </Container>
     </motion.div>
   );

@@ -41,7 +41,6 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Smooth page transitions */
 .page-transition-enter {
   opacity: 0;
   transform: translateY(20px);
@@ -64,7 +63,6 @@
   transition: opacity 300ms ease-in, transform 300ms ease-out;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -83,14 +81,12 @@
   background: #555;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .main-content {
     padding: 1rem;
   }
 }
 
-/* Loading animation */
 @keyframes shimmer {
   0% {
     background-position: -1000px 0;

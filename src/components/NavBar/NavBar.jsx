@@ -9,7 +9,7 @@ export default function NavBar() {
   const handleSearch = (e) => {
     if (e.key === "Enter" && search.trim()) {
       navigate(`/trend/${search}`);
-      setSearch(""); // Очистка поля поиска
+      setSearch(""); 
     }
   };
 

@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"time"
+
 	"trendscope/internal/models"
 	"trendscope/internal/storage"
 )
@@ -20,7 +21,6 @@ func GetTrendsHandler(analyzer models.TrendAnalyzer) http.HandlerFunc {
 			return
 		}
 
-		// Сразу возвращаем клиенту кэш
 		response := models.Response{
 			Trends:    cachedTrends,
 			Details:   cachedDetails,
@@ -33,7 +33,6 @@ func GetTrendsHandler(analyzer models.TrendAnalyzer) http.HandlerFunc {
 			return
 		}
 
-		// Обновляем кэш в фоне
 		if isStale || len(cachedTrends) == 0 {
 			go func() {
 				log.Println("Фоновое обновление кэша трендов из Gemini API")

@@ -15,7 +15,6 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import "./Favorites.css";
 import { IconButton } from '@mui/material';
 
 const FavoriteCard = ({ trend, onFavoriteToggle, isFavorited }) => {
@@ -34,7 +33,7 @@ const FavoriteCard = ({ trend, onFavoriteToggle, isFavorited }) => {
         display: "flex",
         flexDirection: "column",
         transition: "all 0.3s ease",
-        height: "350px",  // You can change this to any height you prefer
+        height: "350px", 
         "&:hover": {
         boxShadow: "0 8px 16px rgba(0,0,0,0.1)",
         transform: "translateY(-4px)",
@@ -87,7 +86,6 @@ export default function Favorites() {
   const [favorites, setFavorites] = useState([]);
   const navigate = useNavigate();
 
-  // Load favorites from localStorage
   useEffect(() => {
     const savedFavorites = localStorage.getItem("favorites");
     if (savedFavorites) {
@@ -95,7 +93,6 @@ export default function Favorites() {
     }
   }, []);
 
-  // Handle removing a favorite trend
   const handleFavoriteToggle = (trend) => {
     const updatedFavorites = favorites.filter((fav) => fav.id !== trend.id);
     setFavorites(updatedFavorites);

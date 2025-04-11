@@ -109,7 +109,6 @@ export default function Trends() {
       const data = await response.json();
       const trendsArray = Array.isArray(data) ? data : data.trends || [];
   
-      // Remove duplicates based on trend id
       const uniqueTrends = trendsArray.filter((trend, index, self) =>
         index === self.findIndex((t) => t.id === trend.id)
       );

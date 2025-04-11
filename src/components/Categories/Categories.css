@@ -25,7 +25,6 @@
   }
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -44,7 +43,6 @@
   background: #555;
 }
 
-/* Card hover effects */
 .trend-card {
   transition: all 0.3s ease;
   cursor: pointer;
@@ -55,7 +53,6 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-/* Tab styles */
 .MuiTabs-root {
   border-bottom: 1px solid #E5E9EC;
 }
@@ -71,7 +68,6 @@
   font-weight: 600;
 }
 
-/* Responsive adjustments */
 @media (max-width: 600px) {
   .MuiContainer-root {
     padding: 16px !important;
