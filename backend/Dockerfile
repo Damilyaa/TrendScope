@@ -20,6 +20,11 @@ FROM debian:bookworm-slim
 # Устанавливаем рабочую директорию
 WORKDIR /app
 
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
 # Копируем исполнимый файл из стадии сборки
 COPY --from=builder /app/app .
 
