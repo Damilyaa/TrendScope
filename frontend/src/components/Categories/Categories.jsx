@@ -23,7 +23,7 @@ import { IconButton } from '@mui/material';
 
 const fetchTrendsData = async () => {
   try {
-    const response = await fetch("http://localhost:8080/api/trends");
+    const response = await fetch("http://89.219.32.91:8008/api/trends");
     if (!response.ok) {
       throw new Error("Не удалось загрузить данные о трендах");
     }
