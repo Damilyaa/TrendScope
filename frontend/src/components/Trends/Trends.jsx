@@ -88,7 +88,7 @@ export default function Trends() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("http://backend:8008/api/trends");
+      const response = await fetch("http://89.219.32.91:8008/api/trends");
       if (!response.ok) {
         throw new Error("Не удалось загрузить тренды");
       }
