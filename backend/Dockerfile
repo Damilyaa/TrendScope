@@ -1,22 +1,33 @@
+# Этап сборки
 FROM golang:1.22 AS builder
 
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
+# Копируем go.mod и go.sum (если есть) и загружаем зависимости
 COPY go.mod ./
 RUN go mod download
 
+# Копируем все исходники в контейнер
 COPY . .
 
-RUN go build -o app ./cmd
+# Собираем приложение
+RUN go build -o /app/app ./cmd
 
 # Финальный образ
 FROM debian:bookworm-slim
 
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
+# Копируем исполнимый файл из стадии сборки
 COPY --from=builder /app/app .
-COPY parsedata ./parsedata  
 
+# Копируем дополнительные данные, если нужно
+COPY parsedata ./parsedata
+
+# Открываем порт
 EXPOSE 8008
 
+# Запускаем приложение
 CMD ["./app"]
