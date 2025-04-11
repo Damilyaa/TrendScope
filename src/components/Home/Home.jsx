@@ -58,7 +58,7 @@ export default function Home() {
             variant="h1"
             align="center"
             sx={{
-              mb: 6,
+              mb: 4,
               fontWeight: 700,
               background: "linear-gradient(45deg, #2c3e50 30%, #30a7d2 90%)",
               WebkitBackgroundClip: "text",
@@ -110,7 +110,7 @@ export default function Home() {
           </Grid>
         </Box>
 
-        <Box className="features" sx={{ py: 8, bgcolor: "#f8f9fa", borderRadius: "16px", mt: 4 }}>
+        {/* <Box className="features" sx={{ py: 8, bgcolor: "#f8f9fa", borderRadius: "16px", mt: 4 }}>
           <Typography
             variant="h2"
             align="center"
@@ -174,7 +174,7 @@ export default function Home() {
               </motion.div>
             </Grid>
           </Grid>
-        </Box>
+        </Box> */}
       </motion.div>
     </Container>
   );

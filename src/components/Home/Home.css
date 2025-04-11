@@ -12,11 +12,9 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    /* padding: 2rem 2rem; */
     background: linear-gradient(135deg, rgba(203, 216, 229, 0.783) 0%, rgba(125, 181, 200, 0.686) 100%);
     border-radius: 24px;
-    margin-bottom: 4rem;
-    margin-top: 2rem;
+    margin-top: 4rem;
   }
   
   .hero-content {
@@ -58,7 +56,8 @@
   }
   
   .how-it-works {
-    margin-top: 4rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
   }
   
   .how-it-works h2 {
