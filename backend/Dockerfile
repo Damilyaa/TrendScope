@@ -5,7 +5,7 @@ FROM golang:1.22 AS builder
 WORKDIR /app
 
 # Копируем go.mod и go.sum (если есть) и загружаем зависимости
-COPY go.mod go.sum ./
+COPY go.mod ./
 RUN go mod download
 
 # Копируем все исходники в контейнер
