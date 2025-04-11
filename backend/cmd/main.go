@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"log"
 	"net/http"
 	"time"
@@ -21,22 +22,36 @@ func corsMiddleware(next http.Handler) http.Handler {
 	})
 }
 
+func createInsecureHTTPClient() *http.Client {
+	tlsConfig := &tls.Config{
+		InsecureSkipVerify: true,
+	}
+
+	transport := &http.Transport{
+		TLSClientConfig: tlsConfig,
+	}
+
+	return &http.Client{
+		Transport: transport,
+		Timeout:   45 * time.Second,
+	}
+}
+
 func main() {
 	apiKey := "AIzaSyCvzA-sP2QtCUTbAyzU5Fe9kHcRT3Fdrsw"
 	if apiKey == "" {
 		log.Fatal("APIKey не задан")
 	}
 
+	client := createInsecureHTTPClient()
+
 	gemini := &api.GeminiAPI{
 		APIEndpoint: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
 		APIKey:      apiKey,
-		Client: &http.Client{
-			Timeout: 45 * time.Second,
-		},
+		Client:      client,
 	}
 
 	mux := http.NewServeMux()
-
 	mux.HandleFunc("/api/trends", handlers.GetTrendsHandler(gemini))
 
 	handler := corsMiddleware(mux)
