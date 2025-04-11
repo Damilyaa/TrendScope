@@ -12,6 +12,7 @@ services:
     restart: unless-stopped
 
   frontend:
+    command: npm run dev -- --host 0.0.0.0
     build:
       context: ./frontend
     container_name: react-frontend
