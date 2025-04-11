@@ -10,10 +10,10 @@
     max-width: 1400px;
     margin: 0 auto;
     margin-top: 1rem;
-  }
+}
 
 .logo {
-  color: #254668;
+    color: #254668;
 }
 
 .nav-links {
@@ -56,9 +56,41 @@
     border-color: #254768de;
 }
 
-.auth {
-    justify-content: space-between;
-    gap: 3.5rem;
+.profile-container {
     display: flex;
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.MuiMenu-paper {
+    margin-top: 0.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.MuiMenuItem-root {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    color: #254668;
+    transition: background-color 0.2s ease;
+}
+
+.MuiMenuItem-root:hover {
+    background-color: rgba(37, 70, 104, 0.08);
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 2rem;
+        margin-left: 2rem;
+    }
+
+    .nav-link {
+        font-size: 1.1rem;
+    }
+
+    .search-container {
+        max-width: 200px;
+    }
 }
   

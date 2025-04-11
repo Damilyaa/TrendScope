@@ -7,34 +7,41 @@
   }
   
   .hero {
-    background: linear-gradient(135deg, #2c3e50, #4a69bd);
-    color: white;
-    padding: 4rem;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    min-height: 60vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    /* padding: 2rem 2rem; */
+    background: linear-gradient(135deg, rgba(203, 216, 229, 0.783) 0%, rgba(125, 181, 200, 0.686) 100%);
+    border-radius: 24px;
+    margin-bottom: 4rem;
+    margin-top: 2rem;
   }
   
   .hero-content {
-    max-width: 1000px;
+    max-width: 800px;
+    margin: 0 auto;
   }
   
-  .hero h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+  .hero-title {
+    font-size: 4rem !important;
+    font-weight: 800 !important;
+    margin-bottom: 1.5rem !important;
+    line-height: 1.2 !important;
   }
   
-  .hero p {
-    font-size: 1.2rem;
-    opacity: 0.8;
+  .hero-subtitle {
+    font-size: 1.5rem !important;
+    color: #435f75;
+    margin-top: 3.5rem;
+    margin-bottom: 2rem !important;
+    line-height: 1.5 !important;
   }
   
   .cta-button {
     display: inline-block;
-    margin-top: 1.5rem;
+    margin-top: 2.5rem;
     padding: 0.8rem 1.8rem;
     background: white;
     color: #2c3e50;
@@ -42,6 +49,7 @@
     border-radius: 8px;
     text-decoration: none;
     transition: background 0.3s ease, transform 0.2s ease;
+    animation: float 3s ease-in-out infinite;
   }
   
   .cta-button:hover {
@@ -64,26 +72,31 @@
     margin-top: 2rem;
   }
   
-  .step {
-    background: #ffffff;
+  .step-card {
+    background: white;
     padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    flex: 1;
-    transition: transform 0.3s ease;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
   }
   
-  .step:hover {
+  .step-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
   }
   
-  .step h3 {
+  .step-card h3 {
     font-size: 1.3rem;
     color: #254668;
     margin-bottom: 0.5rem;
   }
   
-  .step p {
+  .step-card p {
     font-size: 1rem;
     color: #254668;
   }
@@ -103,26 +116,60 @@
     margin-top: 2rem;
   }
   
-  .feature-item {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+  .feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    transition: all 0.3s ease;
   }
   
-  .feature-item:hover {
+  .feature-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
   }
   
-  .feature-item h4 {
+  .feature-card h4 {
     font-size: 1.2rem;
     color: #254668;
     margin-bottom: 0.5rem;
   }
   
-  .feature-item p {
+  .feature-card p {
     font-size: 1rem;
     color: #254668;
+  }
+  
+  @media (max-width: 768px) {
+    .hero {
+        min-height: 60vh;
+        padding: 3rem 1rem;
+    }
+
+    .hero-title {
+        font-size: 2.5rem !important;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem !important;
+    }
+
+    .step-card, .feature-card {
+        padding: 1.5rem;
+    }
+  }
+  
+  /* Animation keyframes */
+  @keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
   }
   
