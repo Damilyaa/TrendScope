@@ -17,6 +17,6 @@ WORKDIR /app
 COPY --from=builder /app/app .
 COPY parsedata ./parsedata  
 
-EXPOSE 8080
+EXPOSE 8008
 
 CMD ["./app"]
