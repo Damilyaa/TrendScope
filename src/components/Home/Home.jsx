@@ -19,16 +19,10 @@ export default function Home() {
             <Typography
               variant="h1"
               className="hero-title"
-              sx={{
-                background: "linear-gradient(45deg, #2c3e50 30%, #30a7d2 90%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                mb: 2,
-              }}
             >
               Trends Analyzer
             </Typography>
-            <Typography variant="h5" className="hero-subtitle" sx={{ mb: 4, color: "#666" }}>
+            <Typography variant="h5" className="hero-subtitle">
               Discover and analyze the latest trends with AI-powered insights
             </Typography>
             <Button
@@ -36,34 +30,17 @@ export default function Home() {
               size="large"
               href="/trends"
               className="cta-button"
-              sx={{
-                background: "linear-gradient(45deg, #2c3e50 30%, #30a7d2 90%)",
-                color: "white",
-                padding: "12px 32px",
-                fontSize: "1.1rem",
-                borderRadius: "8px",
-                textTransform: "none",
-                "&:hover": {
-                  background: "linear-gradient(45deg, #1a252f 30%, #2586b3 90%)",
-                },
-              }}
             >
               Start Exploring
             </Button>
           </Box>
         </Box>
 
-        <Box className="how-it-works" sx={{ py: 8 }}>
+        <Box className="how-it-works">
           <Typography
             variant="h1"
             align="center"
-            sx={{
-              mb: 4,
-              fontWeight: 700,
-              background: "linear-gradient(45deg, #2c3e50 30%, #30a7d2 90%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
+            className="how-it-works-title"
           >
             How It Works
           </Typography>
@@ -71,8 +48,8 @@ export default function Home() {
             <Grid item xs={12} md={4}>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
                 <Box className="step-card">
-                  <TrendingUpIcon sx={{ fontSize: 48, color: "#2c3e50", mb: 2 }} />
-                  <Typography variant="h5" sx={{ mb: 2, fontWeight: 600 }}>
+                  <TrendingUpIcon />
+                  <Typography variant="h5">
                     Trend Search
                   </Typography>
                   <Typography variant="body1" color="text.secondary">
@@ -84,8 +61,8 @@ export default function Home() {
             <Grid item xs={12} md={4}>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
                 <Box className="step-card">
-                  <AnalyticsIcon sx={{ fontSize: 48, color: "#2c3e50", mb: 2 }} />
-                  <Typography variant="h5" sx={{ mb: 2, fontWeight: 600 }}>
+                  <AnalyticsIcon />
+                  <Typography variant="h5">
                     Data Analysis
                   </Typography>
                   <Typography variant="body1" color="text.secondary">
@@ -97,8 +74,8 @@ export default function Home() {
             <Grid item xs={12} md={4}>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
                 <Box className="step-card">
-                  <PsychologyIcon sx={{ fontSize: 48, color: "#2c3e50", mb: 2 }} />
-                  <Typography variant="h5" sx={{ mb: 2, fontWeight: 600 }}>
+                  <PsychologyIcon />
+                  <Typography variant="h5">
                     AI Predictions
                   </Typography>
                   <Typography variant="body1" color="text.secondary">
@@ -110,17 +87,11 @@ export default function Home() {
           </Grid>
         </Box>
 
-        {/* <Box className="features" sx={{ py: 8, bgcolor: "#f8f9fa", borderRadius: "16px", mt: 4 }}>
+        {/* <Box className="features">
           <Typography
             variant="h2"
             align="center"
-            sx={{
-              mb: 6,
-              fontWeight: 700,
-              background: "linear-gradient(45deg, #2c3e50 30%, #30a7d2 90%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
+            className="features-title"
           >
             Key Features
           </Typography>
@@ -128,7 +99,7 @@ export default function Home() {
             <Grid item xs={12} sm={6} md={3}>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
                 <Box className="feature-card">
-                  <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                  <Typography variant="h6">
                     Data Visualizations
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
@@ -140,7 +111,7 @@ export default function Home() {
             <Grid item xs={12} sm={6} md={3}>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
                 <Box className="feature-card">
-                  <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                  <Typography variant="h6">
                     AI Algorithms
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
@@ -152,7 +123,7 @@ export default function Home() {
             <Grid item xs={12} sm={6} md={3}>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
                 <Box className="feature-card">
-                  <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                  <Typography variant="h6">
                     Category Filters
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
@@ -164,7 +135,7 @@ export default function Home() {
             <Grid item xs={12} sm={6} md={3}>
               <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
                 <Box className="feature-card">
-                  <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+                  <Typography variant="h6">
                     Global Coverage
                   </Typography>
                   <Typography variant="body2" color="text.secondary">

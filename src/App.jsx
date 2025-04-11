@@ -191,13 +191,7 @@ const theme = createTheme({
 });
 
 const LoadingFallback = () => (
-  <div style={{
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: "100vh",
-    background: theme.palette.background.default,
-  }}>
+  <div className="loading-container">
     <div className="loading-spinner"></div>
   </div>
 );

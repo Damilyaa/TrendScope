@@ -25,34 +25,32 @@
   .hero-title {
     font-size: 4rem !important;
     font-weight: 800 !important;
-    margin-bottom: 1.5rem !important;
+    margin-bottom: 16px;
     line-height: 1.2 !important;
+    background: linear-gradient(45deg, #2c3e50 30%, #30a7d2 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   
   .hero-subtitle {
     font-size: 1.5rem !important;
     color: #435f75;
     margin-top: 3.5rem;
-    margin-bottom: 2rem !important;
+    margin-bottom: 32px;
     line-height: 1.5 !important;
   }
   
   .cta-button {
-    display: inline-block;
-    margin-top: 2.5rem;
-    padding: 0.8rem 1.8rem;
-    background: white;
-    color: #2c3e50;
-    font-weight: 600;
+    background: linear-gradient(45deg, #2c3e50 30%, #30a7d2 90%);
+    color: white;
+    padding: 12px 32px;
+    font-size: 1.1rem;
     border-radius: 8px;
-    text-decoration: none;
-    transition: background 0.3s ease, transform 0.2s ease;
-    animation: float 3s ease-in-out infinite;
+    text-transform: none;
   }
   
   .cta-button:hover {
-    background: #f0f0f0;
-    transform: scale(1.05);
+    background: linear-gradient(45deg, #1a252f 10%, #2586b3 90%);
   }
   
   .how-it-works {
@@ -64,6 +62,14 @@
     color: #254668;
   }
 
+  .how-it-works-title {
+    margin-bottom: 32px;
+    font-weight: 700;
+    background: linear-gradient(45deg, #2c3e50 30%, #30a7d2 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
   .steps {
     display: flex;
     justify-content: space-between;
@@ -72,42 +78,44 @@
   }
   
   .step-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 24px;
     text-align: center;
-    transition: all 0.3s ease;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    height: 100%;
   }
   
-  .step-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  .step-card .MuiSvgIcon-root {
+    font-size: 48px;
+    color: #2c3e50;
+    margin-bottom: 16px;
   }
   
-  .step-card h3 {
-    font-size: 1.3rem;
-    color: #254668;
-    margin-bottom: 0.5rem;
-  }
-  
-  .step-card p {
-    font-size: 1rem;
-    color: #254668;
+  .step-card h5 {
+    margin-bottom: 16px;
+    font-weight: 600;
   }
   
   .features {
-    margin-top: 4rem;
+    padding: 64px 0;
+    background-color: #f8f9fa;
+    border-radius: 16px;
+    margin-top: 32px;
   }
 
   .features h2 {
     color: #254668;
   }
-  
+
+  .features-title {
+    margin-bottom: 48px;
+    font-weight: 700;
+    background: linear-gradient(45deg, #2c3e50 30%, #30a7d2 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
   .features-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -116,28 +124,16 @@
   }
   
   .feature-card {
+    padding: 24px;
     background: white;
-    padding: 2rem;
     border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     height: 100%;
-    transition: all 0.3s ease;
   }
   
-  .feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-  }
-  
-  .feature-card h4 {
-    font-size: 1.2rem;
-    color: #254668;
-    margin-bottom: 0.5rem;
-  }
-  
-  .feature-card p {
-    font-size: 1rem;
-    color: #254668;
+  .feature-card h6 {
+    margin-bottom: 16px;
+    font-weight: 600;
   }
   
   @media (max-width: 768px) {

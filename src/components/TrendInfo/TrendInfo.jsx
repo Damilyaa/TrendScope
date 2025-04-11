@@ -61,7 +61,7 @@ export default function TrendInfo() {
 
   if (loading) {
     return (
-      <Container sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+      <Container className="loading-container">
         <CircularProgress />
       </Container>
     );
@@ -134,10 +134,10 @@ export default function TrendInfo() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Box mb={4}>
-          <Box display="flex" alignItems="center" gap={1} mb={2}>
-            <TrendingUpIcon color="primary" sx={{ fontSize: 40 }} />
+      <Container maxWidth="lg">
+        <Box className="trend-header">
+          <Box className="trend-title-container">
+            <TrendingUpIcon color="primary" className="trend-icon" />
             <Typography variant="h4" component="h1" gutterBottom>
               {trend.name}
             </Typography>
@@ -147,7 +147,7 @@ export default function TrendInfo() {
             color="primary"
             variant="outlined"
             size="small"
-            sx={{ mb: 2 }}
+            className="trend-tag"
           />
           <Typography variant="body1" color="text.secondary" paragraph>
             {trend.description}
@@ -156,48 +156,27 @@ export default function TrendInfo() {
 
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
-            <Paper
-              elevation={0}
-              sx={{
-                p: 3,
-                mb: 3,
-                bgcolor: "background.default",
-                borderRadius: 2,
-                height: 400,
-              }}
-            >
-              <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
+            <Paper elevation={0} className="chart-container">
+              <Typography variant="h6" className="chart-title">
                 Popaulerity chart
               </Typography>
               <Line data={chartData} options={chartOptions} />
             </Paper>
 
-            <Paper elevation={0} sx={{ p: 3, borderRadius: 2 }}>
-              <Typography
-                variant="h6"
-                gutterBottom
-                sx={{ display: "flex", alignItems: "center", gap: 1, mb: 3 }}
-              >
+            <Paper elevation={0} className="articles-container">
+              <Typography variant="h6" className="articles-title">
                 <ArticleIcon color="primary" />
                 Articles
               </Typography>
-              <Box component="ul" sx={{ m: 0, pl: 2 }}>
+              <Box component="ul" className="articles-list">
                 {trend.articles.map((article, i) => (
-                  <Box
-                    component="li"
-                    key={i}
-                    sx={{ mb: 2, "&:last-child": { mb: 0 } }}
-                  >
+                  <Box component="li" key={i} className="article-item">
                     <Typography
                       component="a"
                       href={article.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      sx={{
-                        color: "primary.main",
-                        textDecoration: "none",
-                        "&:hover": { textDecoration: "underline" },
-                      }}
+                      className="article-link"
                     >
                       {article.title}
                     </Typography>
@@ -208,25 +187,14 @@ export default function TrendInfo() {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Paper elevation={0} sx={{ p: 3, borderRadius: 2, height: "100%" }}>
-              <Typography
-                variant="h6"
-                gutterBottom
-                sx={{ display: "flex", alignItems: "center", gap: 1, mb: 3 }}
-              >
+            <Paper elevation={0} className="social-container">
+              <Typography variant="h6" className="social-title">
                 Social media
               </Typography>
               {trend.socialPosts.map((post, i) => (
-                <Card
-                  key={i}
-                  sx={{
-                    mb: 2,
-                    "&:last-child": { mb: 0 },
-                    bgcolor: "background.default",
-                  }}
-                >
+                <Card key={i} className="social-card">
                   <CardContent>
-                    <Box display="flex" alignItems="center" gap={1} mb={1}>
+                    <Box className="social-header">
                       {post.platform === "Twitter" && (
                         <TwitterIcon color="primary" />
                       )}
@@ -249,9 +217,8 @@ export default function TrendInfo() {
                       href={post.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      component="a" 
                     >
-                      Learn more
+                      View post
                     </Button>
                   </CardActions>
                 </Card>

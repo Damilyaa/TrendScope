@@ -9,6 +9,34 @@
   text-align: center;
 }
 
+.categories-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #254668;
+  text-align: center;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.categories-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #254668, #30a7d2);
+  border-radius: 3px;
+}
+
+.categories-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
 .category-card {
   height: 100%;
   transition: all 0.3s ease;
@@ -22,6 +50,14 @@
 @media (max-width: 600px) {
   .categories-container {
     padding: 1rem;
+  }
+  
+  .categories-title {
+    font-size: 2rem;
+  }
+  
+  .categories-subtitle {
+    font-size: 1rem;
   }
 }
 
@@ -46,11 +82,64 @@
 .trend-card {
   transition: all 0.3s ease;
   cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.trend-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #254668, #30a7d2);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.trend-card:hover::before {
+  transform: scaleX(1);
 }
 
 .trend-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.trend-card-content {
+  flex-grow: 1;
+}
+
+.trend-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.trend-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: rgb(26, 77, 128);
+  margin-right: 8px;
+}
+
+.favorite-button {
+  position: relative;
+  top: -15px;
+}
+
+.trend-description {
+  color: rgba(26, 77, 128, 0.78);
+}
+
+.trend-tag {
+  color: rgba(26, 77, 128, 0.78);
 }
 
 .MuiTabs-root {

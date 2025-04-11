@@ -32,21 +32,11 @@ const TrendCard = ({ trend, onFavoriteToggle, isFavorited }) => {
       <Card
         className="trend-card"
         onClick={handleClick}
-        sx={{
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          transition: "all 0.3s ease",
-          "&:hover": {
-            boxShadow: "0 8px 16px rgba(0,0,0,0.1)",
-            transform: "translateY(-4px)",
-          },
-        }}
       >
-        <CardContent sx={{ flexGrow: 1 }}>
-          <Box display="flex" alignItems="center" mb={2}>
+        <CardContent className="trend-card-content">
+          <Box className="trend-header">
             <TrendingUpIcon color="primary" sx={{ mr: 1 }} />
-            <Typography variant="h6" component="h2" gutterBottom sx={{ color: "rgb(26, 77, 128)" }}>
+            <Typography variant="h6" component="h2" className="trend-title">
               {trend.name}
             </Typography>
             <IconButton
@@ -55,16 +45,12 @@ const TrendCard = ({ trend, onFavoriteToggle, isFavorited }) => {
                 onFavoriteToggle(trend);
               }}
               color={isFavorited ? "favorites" : "default"}
-              sx={{
-                position: "relative",
-                top: "-15px", 
-              }}
+              className="favorite-button"
             >
               <FavoriteIcon />
             </IconButton>
-
           </Box>
-          <Typography variant="body2" color="text.secondary" paragraph sx={{ color: "rgba(26, 77, 128, 0.78)" }}>
+          <Typography variant="body2" className="trend-description" paragraph>
             {trend.description}
           </Typography>
           <Box mt={2}>
@@ -73,7 +59,7 @@ const TrendCard = ({ trend, onFavoriteToggle, isFavorited }) => {
               color="primary"
               variant="outlined"
               size="small"
-              sx={{ color: "rgba(26, 77, 128, 0.78)" }}
+              className="trend-tag"
             />
           </Box>
         </CardContent>
@@ -114,120 +100,94 @@ export default function Trends() {
       );
   
       setTrends(uniqueTrends);
+      setLoading(false);
     } catch (err) {
       setError(err.message);
-    } finally {
       setLoading(false);
     }
   }, []);
-  
 
   useEffect(() => {
     fetchTrends();
   }, [fetchTrends]);
 
   const handleFavoriteToggle = (trend) => {
-    const isAlreadyFavorited = favorites.some((fav) => fav.id === trend.id);
-    let updatedFavorites;
+    const isFavorited = favorites.some((fav) => fav.id === trend.id);
     
-    if (isAlreadyFavorited) {
-      updatedFavorites = favorites.filter((fav) => fav.id !== trend.id);
+    if (isFavorited) {
+      const updatedFavorites = favorites.filter((fav) => fav.id !== trend.id);
+      setFavorites(updatedFavorites);
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
     } else {
-      updatedFavorites = [...favorites, trend];
+      const updatedFavorites = [...favorites, trend];
+      setFavorites(updatedFavorites);
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
     }
-
-    setFavorites(updatedFavorites);
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
-  if (loading) {
-    return (
-      <Container
-        maxWidth="md"
-        sx={{ display: "flex", justifyContent: "center", mt: 4 }}
-      >
-        <CircularProgress />
-      </Container>
-    );
-  }
+  const handleLoadMore = () => {
+    setLimit((prevLimit) => prevLimit + 6);
+  };
 
-  if (error) {
-    return (
-      <Container maxWidth="md">
-        <Alert
-          severity="error"
-          action={
-            <Button color="inherit" size="small" onClick={fetchTrends}>
-              Попробовать снова
-            </Button>
-          }
-        >
-          {error}
-        </Alert>
-      </Container>
-    );
-  }
+  const isFavorited = (trend) => {
+    return favorites.some((fav) => fav.id === trend.id);
+  };
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Typography
-          variant="h3"
-          component="h1"
-          gutterBottom
-          align="center"
-          sx={{
-            fontWeight: 700,
-            mb: 4,
-            background: "linear-gradient(45deg, #2c3e50 30%, #30a7d2 90%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-          }}
-        >
-          Current trends
+    <Container className="trends-container">
+      <div className="trends-header">
+        <Typography variant="h3" component="h1" className="trends-title">
+          Current Trends
         </Typography>
-
-        <Typography
-          variant="h5"
-          component="h2"
-          gutterBottom
-          sx={{
-            color: "text.secondary",
-            mb: 3,
-            fontWeight: 500,
-          }}
-        >
-          {currentDate}
+        <Typography variant="h6" component="h2" className="trends-subtitle">
+          Discover what's trending today
         </Typography>
+      </div>
 
-        <Grid container spacing={3}>
-          {trends.slice(0, limit).map((trend) => (
-            <Grid item xs={12} sm={6} md={4} key={trend.id}>
-              <TrendCard
-                trend={trend}
-                onFavoriteToggle={handleFavoriteToggle}
-                isFavorited={favorites.some((fav) => fav.id === trend.id)}
-              />
+      {loading ? (
+        <div className="loading-container">
+          <CircularProgress />
+        </div>
+      ) : error ? (
+        <div className="error-container">
+          <Typography variant="h6" className="error-message">
+            {error}
+          </Typography>
+          <Button onClick={fetchTrends}>Try Again</Button>
+        </div>
+      ) : (
+        <>
+          <div className="trends-day">
+            <Typography variant="h5" className="trends-date">
+              {currentDate}
+            </Typography>
+            <Grid container spacing={3}>
+              {trends.slice(0, limit).map((trend) => (
+                <Grid item xs={12} sm={6} md={4} key={trend.id}>
+                  <TrendCard
+                    trend={trend}
+                    onFavoriteToggle={handleFavoriteToggle}
+                    isFavorited={isFavorited(trend)}
+                  />
+                </Grid>
+              ))}
             </Grid>
-          ))}
-        </Grid>
+          </div>
 
-        <Box mt={2} display="flex" justifyContent="center">
-          {limit < trends.length && (
-            <Button
-              variant="contained"
-              onClick={() => setLimit(limit + 9)}
-              sx={{ mr: 2 }}
-            >
-              Show more
-            </Button>
+          {trends.length > limit && (
+            <div className="load-more-container">
+              <Button 
+                variant="contained" 
+                color="primary" 
+                onClick={handleLoadMore}
+                className="load-more-button"
+              >
+                Load More
+              </Button>
+            </div>
           )}
-        </Box>
-      </motion.div>
+        </>
+      )}
     </Container>
   );
 }

@@ -16,6 +16,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { IconButton } from '@mui/material';
+import "./Favorites.css";
 
 const FavoriteCard = ({ trend, onFavoriteToggle, isFavorited }) => {
   const navigate = useNavigate();
@@ -29,21 +30,11 @@ const FavoriteCard = ({ trend, onFavoriteToggle, isFavorited }) => {
     <Card
     className="trend-card"
     onClick={handleClick}
-    sx={{
-        display: "flex",
-        flexDirection: "column",
-        transition: "all 0.3s ease",
-        height: "350px", 
-        "&:hover": {
-        boxShadow: "0 8px 16px rgba(0,0,0,0.1)",
-        transform: "translateY(-4px)",
-        },
-    }}
     >
-    <CardContent sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-        <Box display="flex" alignItems="center" mb={2}>
+    <CardContent className="trend-card-content">
+        <Box className="trend-header">
         <TrendingUpIcon color="primary" sx={{ mr: 1 }} />
-        <Typography variant="h6" component="h2" gutterBottom sx={{ color: "rgb(26, 77, 128)" }}>
+        <Typography variant="h6" component="h2" className="trend-title">
             {trend.name}
         </Typography>
         <IconButton
@@ -52,15 +43,12 @@ const FavoriteCard = ({ trend, onFavoriteToggle, isFavorited }) => {
             onFavoriteToggle(trend);
             }}
             color={isFavorited ? "error" : "default"}
-            sx={{
-            position: "relative",
-            top: "-15px",
-            }}
+            className="favorite-button"
         >
             <FavoriteIcon />
         </IconButton>
         </Box>
-        <Typography variant="body2" color="text.secondary" paragraph sx={{ color: "rgba(26, 77, 128, 0.78)" }}>
+        <Typography variant="body2" className="trend-description" paragraph>
         {trend.description}
         </Typography>
         <Box mt={2}>
@@ -69,11 +57,11 @@ const FavoriteCard = ({ trend, onFavoriteToggle, isFavorited }) => {
             color="primary"
             variant="outlined"
             size="small"
-            sx={{ color: "rgba(26, 77, 128, 0.78)" }}
+            className="trend-tag"
         />
         </Box>
     </CardContent>
-    <CardActions sx={{ marginTop: 'auto' }}>
+    <CardActions className="trend-actions">
     <Button size="small" color="primary">Learn More</Button>
     </CardActions>
     </Card>
@@ -100,58 +88,43 @@ export default function Favorites() {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Typography
-          variant="h3"
-          component="h1"
-          gutterBottom
-          align="center"
-          sx={{
-            fontWeight: 700,
-            mb: 4,
-            background: "linear-gradient(45deg, #2c3e50 30%, #30a7d2 90%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-          }}
-        >
-          Favorite Trends
+    <Container className="favorites-container">
+      <div className="favorites-header">
+        <Typography variant="h3" component="h1" className="favorites-title">
+          Favorites
         </Typography>
-
+        <Typography variant="h6" component="h2" className="favorites-subtitle">
+          Your saved trends and insights
+        </Typography>
+      </div>
+      
+      {favorites.length === 0 ? (
+        <div className="empty-favorites">
+          <FavoriteIcon className="empty-favorites-icon" />
+          <Typography variant="h6" className="empty-favorites-text">
+            You haven't saved any favorites yet
+          </Typography>
+          <Button 
+            variant="contained" 
+            color="primary" 
+            onClick={() => navigate('/trends')}
+          >
+            Explore Trends
+          </Button>
+        </div>
+      ) : (
         <Grid container spacing={3}>
-          {favorites.length > 0 ? (
-            favorites.map((trend) => (
-              <Grid item xs={12} sm={6} md={4} key={trend.id}>
-                <FavoriteCard
-                  trend={trend}
-                  onFavoriteToggle={handleFavoriteToggle}
-                  isFavorited={true} 
-                />
-              </Grid>
-            ))
-          ) : (
-            <Typography variant="h6" align="center" sx={{ width: "100%" }}>
-              You haven't added any trends to your favorites yet.
-            </Typography>
-          )}
+          {favorites.map((trend) => (
+            <Grid item xs={12} sm={6} md={4} key={trend.id}>
+              <FavoriteCard
+                trend={trend}
+                onFavoriteToggle={handleFavoriteToggle}
+                isFavorited={true}
+              />
+            </Grid>
+          ))}
         </Grid>
-
-        {favorites.length > 0 && (
-          <Box mt={2} display="flex" justifyContent="center">
-            <Button
-              variant="outlined"
-              color="primary"
-              onClick={() => navigate("/trends")} 
-            >
-              View All Trends
-            </Button>
-          </Box>
-        )}
-      </motion.div>
+      )}
     </Container>
   );
 }
