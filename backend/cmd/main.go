@@ -41,6 +41,6 @@ func main() {
 
 	handler := corsMiddleware(mux)
 
-	log.Println("Server started on :8080")
-	log.Fatal(http.ListenAndServe(":8080", handler))
+	log.Println("Server started on :8008")
+	log.Fatal(http.ListenAndServe(":8008", handler))
 }
