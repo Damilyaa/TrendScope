@@ -11,7 +11,7 @@ import (
 
 var (
 	mu        sync.Mutex
-	cacheFile = "../parsedata/trends.json"
+	cacheFile = "parsedata/trends.json"
 	cacheTTL  = 1 * time.Hour
 )
 
