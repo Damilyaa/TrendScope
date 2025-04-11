@@ -145,17 +145,14 @@ export default function Trends() {
       </div>
 
       {loading ? (
-        <div className="loading-container">
-          <CircularProgress />
-        </div>
-      ) : error ? (
-        <div className="error-container">
-          <Typography variant="h6" className="error-message">
-            {error}
-          </Typography>
-          <Button onClick={fetchTrends}>Try Again</Button>
-        </div>
-      ) : (
+              <Box display="flex" justifyContent="center" alignItems="center" minHeight="300px">
+                <CircularProgress />
+              </Box>
+            ) : error ? (
+              <Alert severity="error" sx={{ mb: 2 }}>
+                {error}
+              </Alert>
+            ) : (
         <>
           <div className="trends-day">
             <Typography variant="h5" className="trends-date">

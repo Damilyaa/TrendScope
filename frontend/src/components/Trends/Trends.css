@@ -2,7 +2,7 @@
     padding: 1rem 2rem 2rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
+    text-align: start;
 }
 
 .trends-header {
@@ -14,7 +14,7 @@
     font-size: 2.5rem;
     margin-bottom: 1rem;
     color: #254668;
-    text-align: start;
+    text-align: center;
     position: relative;
     padding-bottom: 15px;
 }
@@ -23,7 +23,8 @@
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100px;
     height: 3px;
     background: linear-gradient(90deg, #254668, #30a7d2);
@@ -34,7 +35,7 @@
     font-size: 1.2rem;
     color: #666;
     margin-bottom: 2rem;
-    text-align: start;
+    text-align: center;
 }
 
 .trends-day {
@@ -97,7 +98,7 @@
 
 .trend-header {
     display: flex;
-    align-items: center;
+    align-items: start;
     margin-bottom: 16px;
 }
 

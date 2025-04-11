@@ -5,15 +5,17 @@
     background: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 1rem 1.5rem;
-    border-radius: 12px;
+    border-radius: 32px;
     width: 100%;
-    max-width: 1400px;
+    max-width: 1800px;
     margin: 0 auto;
     margin-top: 1rem;
+    max-height: 6.5rem;
 }
 
 .logo {
     color: #254668;
+    font-size: 1.8rem;;
 }
 
 .nav-links {
@@ -44,10 +46,11 @@
   
 .search-input {
     width: 100%;
+    min-width: 400px;
     padding: 0.5rem 0.75rem;
     font-size: 0.9rem;
     border: 0.15rem solid #25476899;
-    border-radius: 8px;
+    border-radius: 16px;
     outline: none;
     transition: border 0.3s ease-in-out;
 }

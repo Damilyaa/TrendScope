@@ -188,7 +188,7 @@ export default function Categories() {
           {error}
         </Alert>
       ) : (
-        <>
+        <div className="categories-box">
           <Tabs
             value={selectedCategory}
             onChange={handleCategoryChange}
@@ -215,7 +215,7 @@ export default function Categories() {
               ))}
             </Grid>
           )}
-        </>
+        </div>
       )}
     </Container>
   );

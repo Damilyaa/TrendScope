@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
-import Auth from "./components/Auth/Auth";
+// import Auth from "./components/Auth/Auth";
 import Favorites from "./components/Favorites/Favorites";
 
 const Home = React.lazy(() => import("./components/Home/Home"));
@@ -211,7 +211,7 @@ export default function App() {
                 <Route path="/categories" element={<Categories />} />
                 <Route path="/trend/:trendName" element={<Trend />} />
                 <Route path="/favorites" element={<Favorites />} />
-                <Route path="/auth" element={<Auth />} />
+                {/* <Route path="/auth" element={<Auth />} /> */}
               </Routes>
             </Suspense>
           </main>

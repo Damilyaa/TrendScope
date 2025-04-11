@@ -97,20 +97,14 @@ export default function Favorites() {
           Your saved trends and insights
         </Typography>
       </div>
-      
+      <div className="favorites-box">
       {favorites.length === 0 ? (
         <div className="empty-favorites">
           <FavoriteIcon className="empty-favorites-icon" />
           <Typography variant="h6" className="empty-favorites-text">
             You haven't saved any favorites yet
           </Typography>
-          <Button 
-            variant="contained" 
-            color="primary" 
-            onClick={() => navigate('/trends')}
-          >
-            Explore Trends
-          </Button>
+          
         </div>
       ) : (
         <Grid container spacing={3}>
@@ -125,6 +119,8 @@ export default function Favorites() {
           ))}
         </Grid>
       )}
+      </div>
+      
     </Container>
   );
 }

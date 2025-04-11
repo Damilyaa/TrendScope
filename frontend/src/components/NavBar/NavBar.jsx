@@ -48,7 +48,7 @@ export default function NavBar() {
           onKeyDown={handleSearch}
         />
       </div>
-      <div className="profile-container">
+      {/* <div className="profile-container">
         <IconButton
           onClick={handleProfileMenuOpen}
           size="large"
@@ -78,7 +78,7 @@ export default function NavBar() {
           <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
           <MenuItem onClick={handleProfileClick}>Login</MenuItem>
         </Menu>
-      </div>
+      </div> */}
     </nav>
   );
 }
