@@ -7,9 +7,8 @@ services:
     container_name: go-backend
     ports:
       - "8008:8008"
-    working_dir: /app
     volumes:
-      - ./backend:/app
+      - ./backend/parsedata:/app/parsedata
     restart: unless-stopped
 
   frontend:
@@ -18,10 +17,8 @@ services:
     container_name: react-frontend
     ports:
       - "5173:5173"
-    working_dir: /app
     volumes:
-      - ./frontend:/app
       - /app/node_modules
     restart: unless-stopped
     environment:
-      - VITE_BACKEND_URL=http://localhost:8008
+      - VITE_BACKEND_URL=http://backend:8008

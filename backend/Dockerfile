@@ -4,20 +4,20 @@ FROM golang:1.22 AS builder
 # Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Копируем go.mod и go.sum и загружаем зависимости
-COPY go.mod ./
-RUN go mod tidy
+# Копируем go.mod и go.sum (если есть) и загружаем зависимости
+COPY go.mod go.sum ./
+RUN go mod download
 
-# Копируем все исходники
+# Копируем все исходники в контейнер
 COPY . .
 
-# Собираем приложение с дополнительными логами для отладки
-RUN go build -o /app/app ./cmd || { echo "Build failed"; exit 1; }
+# Собираем приложение
+RUN go build -o /app/app ./cmd
 
 # Финальный образ
 FROM debian:bookworm-slim
 
-# Рабочая директория
+# Устанавливаем рабочую директорию
 WORKDIR /app
 
 # Копируем исполнимый файл из стадии сборки
