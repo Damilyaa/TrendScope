@@ -21,8 +21,13 @@ FROM debian:bookworm-slim
 WORKDIR /app
 
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates && \
+RUN apt-get update && \
+    apt-get install -y \
+    ca-certificates \
+    tzdata && \
+    ln -sf /usr/share/zoneinfo/Asia/Almaty /etc/localtime && \
+    echo "Asia/Almaty" > /etc/timezone && \
+    update-ca-certificates --fresh && \
     rm -rf /var/lib/apt/lists/*
 
 # Копируем исполнимый файл из стадии сборки
