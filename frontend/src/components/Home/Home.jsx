@@ -131,7 +131,7 @@ export default function Home() {
                     Trend Search
                   </Typography>
                   <Typography variant="body1" color="text.secondary">
-                    Input keywords and get trend information with real-time data analysis
+                    Look for the trend that interests you by its categorie
                   </Typography>
                 </Box>
               </motion.div>
