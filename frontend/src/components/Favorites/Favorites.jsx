@@ -123,46 +123,28 @@ export default function Favorites() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchFavorites = async () => {
-      try {
-        const response = await fetch('/api/favorites');
-        if (!response.ok) {
-          throw new Error('Failed to fetch favorites');
-        }
-        const data = await response.json();
-        setFavorites(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+    try {
+      const savedFavorites = localStorage.getItem('favorites');
+      if (savedFavorites) {
+        setFavorites(JSON.parse(savedFavorites));
       }
-    };
-
-    fetchFavorites();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   const handleFavoriteToggle = async (trend) => {
     try {
-      const response = await fetch('/api/favorites/toggle', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ trendId: trend.id }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to toggle favorite');
-      }
-
-      setFavorites(prevFavorites => 
-        prevFavorites.filter(fav => fav.id !== trend.id)
-      );
+      const newFavorites = favorites.filter(fav => fav.id !== trend.id);
+      setFavorites(newFavorites);
+      localStorage.setItem('favorites', JSON.stringify(newFavorites));
     } catch (err) {
       setError(err.message);
     }
   };
-
+  
   return (
     <Container sx={{
       padding: '1rem 2rem 2rem 2rem',
