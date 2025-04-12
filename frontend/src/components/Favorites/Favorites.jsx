@@ -144,7 +144,7 @@ export default function Favorites() {
       setError(err.message);
     }
   };
-  
+
   return (
     <Container sx={{
       padding: '1rem 2rem 2rem 2rem',
@@ -195,7 +195,14 @@ export default function Favorites() {
           Your saved trends
         </Typography>
       </div>
-
+      
+      <div className="favorites-box" style= {{
+        background: "#f5f5f5",
+        padding: "20px",
+        marginBottom: "3rem",
+        borderRadius: "10px",
+        boxShadow: "0 3px 15px rgba(0, 0, 0, 0.1)",
+      }}>
       {loading ? (
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="300px">
           <CircularProgress />
@@ -220,6 +227,8 @@ export default function Favorites() {
           ))}
         </Grid>
       )}
+      </div>
+      
     </Container>
   );
 }
