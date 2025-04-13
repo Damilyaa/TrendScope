@@ -44,7 +44,6 @@ export default function NavBar() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        background: 'white',
         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
         padding: '1.2rem 2rem',
         borderRadius: '32px',
@@ -129,7 +128,6 @@ export default function NavBar() {
                 height: '2px',
                 background: 'linear-gradient(45deg, #2c3e50 30%, #30a7d2 90%)',
                 transition: 'width 0.3s ease',
-                width: '0%'
               }}></span>
             </Link>
           </motion.div>
