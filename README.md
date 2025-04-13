@@ -112,6 +112,7 @@ git clone https://github.com/yourusername/TrendScope.git
 
 2. Install dependencies:
 ```bash
+cd frontend
 npm install
 ```
 
@@ -119,6 +120,12 @@ npm install
 ```bash
 npm run dev
 ```
+4. Start the backend
+```bash
+cd backend/cmd
+go run .
+```
+
 
 The application will be available at `http://localhost:3000`
 
