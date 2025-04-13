@@ -107,7 +107,7 @@ No account required - start exploring trends right away!
 ### For Developers
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/TrendScope.git
+git clone https://github.com/Damilyaa/TrendScope.git
 ```
 
 2. Install dependencies:
